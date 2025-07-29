@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prevention & Safety Tips - CyberSafe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+  body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('learnbg.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px); /* 👈 Controls how blur it looks */
+    z-index: -1;
+}
+
+
+
+
+        /* Header */
+        header {
+            background:black;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .button-neon {
+    background: linear-gradient(135deg, #00ffcc, #00d4ff);
+    color: #000;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 0 20px #00ffcc;
+    transition: all 0.3s ease;
+}
+
+.button-neon:hover {
+    box-shadow: 0 0 40px #00ffcc;
+    transform: scale(1.05);
+}
+
+       nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem 2rem;
+    flex-wrap: wrap; /* 📱 Responsive support */
+}
+
+       .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    gap: 0.8rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.2rem;
+    list-style: none;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links a {
+    padding: 0.4rem 0.8rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+       .page-header {
+    background-image: url("bg-circuit.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0 50px;
+    text-align: center;
+    color: white;
+}
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        /* Quick Tips Banner */
+        .quick-tips-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .quick-tips-banner h2 {
+            margin-bottom: 1rem;
+        }
+
+        .quick-tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quick-tip {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .quick-tip-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Prevention Categories */
+        .prevention-category {
+            background: white;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+        }
+
+        .category-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-info p {
+            opacity: 0.9;
+        }
+
+        .category-content {
+            padding: 2rem;
+        }
+
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+       .tip-card {
+    background: #1a1a1a; /* dark bg */
+    color: white;        /* white text */
+    border: 2px solid #333;
+}
+
+        .tip-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.15);
+        }
+
+        .tip-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+       .tip-description {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+
+        .tip-steps {
+            list-style: none;
+            padding-left: 0;
+        }
+
+       .tip-steps li {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: white; /* <-- Add this line */
+}
+
+        .tip-steps li::before {
+            content: "→";
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 0.2rem;
+        }
+
+        /* Interactive Tools Section */
+        .tools-section {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: scale(1.05);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Password Strength Checker */
+        .password-checker {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .password-strength {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .strength-bar {
+            height: 10px;
+            flex: 1;
+            background: #e0e0e0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .strength-bar.active {
+            background: #28a745;
+        }
+
+        .strength-bar.medium {
+            background: #ffc107;
+        }
+
+        .strength-bar.weak {
+            background: #dc3545;
+        }
+
+        .password-feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .feedback-good {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .feedback-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .feedback-poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Checklist Section */
+        /* Emergency Contacts */
+        .emergency-contacts {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .contact-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+        .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    animation: pulse 2s infinite;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.nav-links a:hover {
+    color: #4CAF50;
+    background: rgba(76, 175, 80, 0.2);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.language-selector, .dark-mode-toggle {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dark-mode-toggle {
+    background: transparent;
+    border: 2px solid #4CAF50;
+}
+
+.language-selector:hover, .dark-mode-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .tips-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 0.6s ease-out;
+        }
+        .security-checklist,
+.tip-card,
+.prevention-category {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid #00ffc3;
+    box-shadow: 0 0 10px #00ffc3;
+}
+
+    </style>
+</head>
+<body>
+   <!-- Header -->
+<header>
+    <nav class="container">
+        <div class="logo">
+            <img src="topRB.png" alt="Logo" class="logo-img">
+            CyberGuard
+        </div>
+        <ul class="nav-links">
+            <li><a href="demo.html">Home</a></li>
+            <li><a href="verifyURL.html">URL verification</a></li>
+            <li><a href="Awareness.html">awareness</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="video.html">Videos</a></li>
+             <li><a href="/templates/index.html" >report an issue</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Prevention & Safety Tips</h1>
+            <p>Learn essential strategies to protect yourself, your family, and your business from cyber threats.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="container">
+            
+            <!-- Quick Tips Banner -->
+            <div class="quick-tips-banner">
+                <h2>🚨 Essential Quick Tips</h2>
+                <p>Follow these basic rules to stay safe online</p>
+                <div class="quick-tips-grid">
+                    <div class="quick-tip">
+                        <div class="quick-tip-icon">🔒</div>
+                        <strong>Strong Passwords</strong>
+                        <p>Use unique passwords for each account</p>
+                    </div>
+                    <div class="quick-tip">
+                        <div class="quick-tip-icon">🔄</div>
+                        <strong>Regular Updates</strong>
+                        <p>Keep software and systems updated</p>
+                    </div>
+                    <div class="quick-tip">
+                        <div class="quick-tip-icon">🤔</div>
+                        <strong>Think Before You Click</strong>
+                        <p>Verify links and attachments</p>
+                    </div>
+                    <div class="quick-tip">
+                        <div class="quick-tip-icon">💾</div>
+                        <strong>Backup Data</strong>
+                        <p>Regular backups save your data</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Security -->
+            <div class="prevention-category">
+                <div class="category-header">
+                    <div class="category-icon">🔐</div>
+                    <div class="category-info">
+                        <h2>Password Security</h2>
+                        <p>Your first line of defense against cyber attacks</p>
+                    </div>
+                </div>
+                <div class="category-content">
+                    <div class="tips-container">
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                💪 Create Strong Passwords
+                            </div>
+                            <div class="tip-description">
+                                Strong passwords are your first defense against hackers.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Use at least 12 characters</li>
+                                <li>Mix uppercase and lowercase letters</li>
+                                <li>Include numbers and special characters</li>
+                                <li>Avoid dictionary words and personal info</li>
+                                <li>Use a passphrase with random words</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                🔄 Use Password Managers
+                            </div>
+                            <div class="tip-description">
+                                Let technology help you manage complex passwords safely.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Choose reputable password managers</li>
+                                <li>Generate unique passwords for each account</li>
+                                <li>Use master password protection</li>
+                                <li>Enable auto-fill for convenience</li>
+                                <li>Sync across all your devices</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                🔐 Enable Two-Factor Authentication
+                            </div>
+                            <div class="tip-description">
+                                Add an extra layer of security to your accounts.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Enable 2FA on all important accounts</li>
+                                <li>Use authenticator apps over SMS</li>
+                                <li>Keep backup codes in safe place</li>
+                                <li>Use hardware keys for high-value accounts</li>
+                                <li>Review and update regularly</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Password Checker -->
+            <div class="password-checker">
+                <h3>🔍 Test Your Password Strength</h3>
+                <input type="password" class="password-input" placeholder="Enter a password to test" id="passwordInput">
+                <div class="password-strength">
+                    <div class="strength-bar" id="bar1"></div>
+                    <div class="strength-bar" id="bar2"></div>
+                    <div class="strength-bar" id="bar3"></div>
+                    <div class="strength-bar" id="bar4"></div>
+                    <div class="strength-bar" id="bar5"></div>
+                </div>
+                <div class="password-feedback" id="passwordFeedback" style="display: none;">
+                    <p id="feedbackText"></p>
+                </div>
+            </div>
+
+            <!-- Email Security -->
+            <div class="prevention-category">
+                <div class="category-header" style="background: linear-gradient(135deg, #ff6b6b, #ff8e8e);">
+                    <div class="category-icon">📧</div>
+                    <div class="category-info">
+                        <h2>Email Security</h2>
+                        <p>Protect yourself from phishing and malicious emails</p>
+                    </div>
+                </div>
+                <div class="category-content">
+                    <div class="tips-container">
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                🕵️ Identify Phishing Emails
+                            </div>
+                            <div class="tip-description">
+                                Learn to spot suspicious emails before they cause damage.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Check sender's email address carefully</li>
+                                <li>Look for spelling and grammar errors</li>
+                                <li>Be suspicious of urgent requests</li>
+                                <li>Hover over links before clicking</li>
+                                <li>Verify requests through other channels</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                📎 Handle Attachments Safely
+                            </div>
+                            <div class="tip-description">
+                                Email attachments can contain malware and viruses.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Don't open unexpected attachments</li>
+                                <li>Scan files with antivirus software</li>
+                                <li>Be wary of executable files (.exe, .bat)</li>
+                                <li>Use cloud-based scanners</li>
+                                <li>When in doubt, delete the email</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                ⚙️ Configure Email Security
+                            </div>
+                            <div class="tip-description">
+                                Set up your email client for maximum security.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Enable spam filtering</li>
+                                <li>Turn off automatic image loading</li>
+                                <li>Use encrypted email services</li>
+                                <li>Keep email software updated</li>
+                                <li>Use separate emails for different purposes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Device Security -->
+            <div class="prevention-category">
+                <div class="category-header" style="background: linear-gradient(135deg, #ffc107, #fd7e14);">
+                    <div class="category-icon">📱</div>
+                    <div class="category-info">
+                        <h2>Device Security</h2>
+                        <p>Keep your computers, phones, and tablets secure</p>
+                    </div>
+                </div>
+                <div class="category-content">
+                    <div class="tips-container">
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                🔄 Keep Software Updated
+                            </div>
+                            <div class="tip-description">
+                                Regular updates patch security vulnerabilities.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Enable automatic updates</li>
+                                <li>Update operating systems promptly</li>
+                                <li>Keep apps and browsers current</li>
+                                <li>Update antivirus definitions</li>
+                                <li>Remove unused software</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                🛡️ Use Security Software
+                            </div>
+                            <div class="tip-description">
+                                Protect against malware, viruses, and threats.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Install reputable antivirus software</li>
+                                <li>Enable real-time protection</li>
+                                <li>Use firewall protection</li>
+                                <li>Run regular system scans</li>
+                                <li>Keep security software updated</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-title">
+                                🔒 Secure Physical Access
+                            </div>
+                            <div class="tip-description">
+                                Physical security is just as important as digital.
+                            </div>
+                            <ul class="tip-steps">
+                                <li>Use screen locks on all devices</li>
+                                <li>Set up remote wipe capabilities</li>
+                                <li>Don't leave devices unattended</li>
+                                <li>Use privacy screens in public</li>
+                                <li>Encrypt sensitive data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Emergency Contacts -->
+            <div class="emergency-contacts">
+                <h2>🚨 Emergency Contacts & Resources</h2>
+                <p>Keep these contacts handy in case of cyber incidents</p>
+                <div class="contacts-grid">
+                    <div class="contact-card">
+                        <div class="contact-title">Cyber Crime Reporting</div>
+                        <div class="contact-info">
+                            <p>National Cyber Crime Portal</p>
+                            <p>🌐 cybercrime.gov.in</p>
+                            <p>📞 155620</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-title">Financial Fraud</div>
+                        <div class="contact-info">
+                            <p>Banking Fraud Helpline</p>
+                            <p>📞 1930</p>
+                            <p>Available 24/7</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-title">Identity Theft</div>
+                        <div class="contact-info">
+                            <p>Consumer Helpline</p>
+                            <p>📞 1800-11-4000</p>
+                            <p>Report identity theft incidents</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-title">Emergency Services</div>
+                        <div class="contact-info">
+                            <p>Police Emergency</p>
+                            <p>📞 100</p>
+                            <p>For immediate threats</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CyberSafe Awareness Platform. Educational Purpose Only.</p>
+            <p style="margin-top: 0.5rem; color: #888;">Knowledge is your best defense against cyber crimes.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Password strength checker
+        document.getElementById('passwordInput').addEventListener('input', function() {
+            const password = this.value;
+            checkPasswordStrength(password);
+        });
+
+        function checkPasswordStrength(password) {
+            const feedback = document.getElementById('passwordFeedback');
+            const feedbackText = document.getElementById('feedbackText');
+            const bars = document.querySelectorAll('.strength-bar');
+            
+            // Reset bars
+            bars.forEach(bar => {
+                bar.classList.remove('active', 'medium', 'weak');
+            });
+
+            if (password.length === 0) {
+                feedback.style.display = 'none';
+                return;
+            }
+
+            let strength = 0;
+            let messages = [];
+
+            // Length check
+            if (password.length >= 8) strength++;
+            else messages.push('Use at least 8 characters');
+
+            // Uppercase check
+            if (/[A-Z]/.test(password)) strength++;
+            else messages.push('Add uppercase letters');
+
+            // Lowercase check
+            if (/[a-z]/.test(password)) strength++;
+            else messages.push('Add lowercase letters');
+
+            // Number check
+            if (/\d/.test(password)) strength++;
+            else messages.push('Add numbers');
+
+            // Special character check
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
+            else messages.push('Add special characters');
+
+            // Update bars
+            for (let i = 0; i < strength; i++) {
+                if (strength <= 2) {
+                    bars[i].classList.add('weak');
+                } else if (strength <= 3) {
+                    bars[i].classList.add('medium');
+                } else {
+                    bars[i].classList.add('active');
+                }
+            }
+
+            // Show feedback
+            feedback.style.display = 'block';
+            feedback.className = 'password-feedback ';
+            
+            if (strength <= 2) {
+                feedback.classList.add('feedback-poor');
+                feedbackText.innerHTML = '<strong>Weak Password</strong><br>' + messages.join(', ');
+            } else if (strength <= 3) {
+                feedback.classList.add('feedback-medium');
+                feedbackText.innerHTML = '<strong>Medium Password</strong><br>Consider: ' + messages.join(', ');
+            } else {
+                feedback.classList.add('feedback-good');
+                feedbackText.innerHTML = '<strong>Strong Password!</strong><br>Great job! Your password is secure.';
+            }
+        }
+
+        // Checklist functionality
+        function toggleCheck(item) {
+            const checkbox = item.querySelector('.checkbox');
+            checkbox.classList.toggle('checked');
+        }
+
+        // Smooth animations on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-up');
+                }
+            });
+        });
+
+        document.querySelectorAll('.prevention-category, .tip-card').forEach(el => {
+            observer.observe(el);
+        });
+          function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        document.querySelector('.dark-mode-toggle').textContent = isDark ? '☀️' : '🌙';
+    }
+
+    document.getElementById('languageSelect').addEventListener('change', function () {
+        const selectedLang = this.value;
+        console.log('Language changed to:', selectedLang);
+        // Future: Add actual language switching here
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cybercrime Awareness Quiz</title>
+  <style>
+    
+    body {
+      background-color: #f0f8ff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    h1 {
+      color: #003366;
+    }
+
+    .quiz-box {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .question {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      margin: 8px auto;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .btn.correct {
+      background-color: #28a745;
+    }
+
+    .btn.incorrect {
+      background-color: #dc3545;
+    }
+
+    #next-btn, #restart-btn {
+      margin-top: 20px;
+      display: none;
+      background-color: #28a745;
+    }
+
+    #score {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cybercrime Awareness Quiz</h1>
+    <div class="quiz-box">
+      <div id="question" class="question">Loading question...</div>
+      <div id="answer-buttons"></div>
+      <button id="next-btn" class="btn" onclick="nextQuestion()">Next</button>
+      <button id="restart-btn" class="btn" onclick="restartQuiz()">Back to Quiz</button>
+      <div id="score"></div>
+      
+    </div>
+  </div>
+<button><a href="demo.html" style="text-decoration: none;">back to home</a></button>
+  <script>
+    const questions = [
+      { question: "Which of the following is an example of cybercrime?", options: ["Sending an email", "Using antivirus software", "Phishing", "Installing apps"], answer: 2 },
+      { question: "What is phishing?", options: ["Fishing in the ocean", "Tricking someone to give sensitive data", "Buying online products", "Hacking only websites"], answer: 1 },
+      { question: "What is a strong password?", options: ["123456", "Your birthdate", "Your pet’s name", "A mix of letters, numbers, symbols"], answer: 3 },
+      { question: "Which device is commonly targeted by cybercriminals?", options: ["Smartphones", "Microwave ovens", "Washing machines", "Ceiling fans"], answer: 0 },
+      { question: "Which one helps protect against cybercrime?", options: ["Opening spam links", "Sharing passwords", "Firewall", "Ignoring updates"], answer: 2 },
+      { question: "What does a firewall do?", options: ["Cools your PC", "Plays music", "Prevents unauthorized access", "Blocks ads"], answer: 2 },
+      { question: "What is ransomware?", options: ["A fun game", "A protective tool", "Malware demanding payment", "Online shopping website"], answer: 2 },
+      { question: "Who commits cybercrimes?", options: ["Only teenagers", "Only police", "Anyone with malicious intent", "Only professionals"], answer: 2 },
+      { question: "What should you do if you receive a suspicious email?", options: ["Click it", "Ignore or report it", "Forward it", "Reply to it"], answer: 1 },
+      { question: "Which of the following is personal information?", options: ["Your favorite movie", "Your birthday", "Color you like", "Dream job"], answer: 1 },
+      { question: "Cyberbullying involves:", options: ["Sending gifts", "Kind messages", "Threats and harassment online", "Birthday wishes"], answer: 2 },
+      { question: "Which app can help secure your login?", options: ["Calculator", "Authenticator", "Weather app", "Notes app"], answer: 1 },
+      { question: "VPN stands for:", options: ["Virtual Private Network", "Video Phone Number", "Very Personal Name", "Verified Protocol Name"], answer: 0 },
+      { question: "Which of these is not a cybercrime?", options: ["Online fraud", "Hacking", "Social media post", "Identity theft"], answer: 2 },
+      { question: "How often should you update your password?", options: ["Never", "Every 10 years", "Once in a lifetime", "Regularly"], answer: 3 },
+      { question: "Spyware is used to:", options: ["Protect your PC", "Speed up internet", "Track your activity secretly", "Fix bugs"], answer: 2 },
+      { question: "Cyber laws are meant to:", options: ["Punish hackers", "Control internet speed", "Block websites", "Ban games"], answer: 0 },
+      { question: "Which is the safest way to use public Wi-Fi?", options: ["Without password", "With VPN", "Clicking popups", "Sharing files"], answer: 1 },
+      { question: "What is identity theft?", options: ["Changing names", "Using another's personal info", "Making fake IDs for fun", "Using passport"], answer: 1 },
+      { question: "Which is a sign of a phishing website?", options: ["HTTPS in URL", "Lots of ads, spelling errors", "Official logo", "Good grammar"], answer: 1 },
+      { question: "What is malware?", options: ["Healthy software", "Malicious software", "Microsoft Office", "Helpful tool"], answer: 1 },
+      { question: "Why is software update important?", options: ["To slow down", "Add bugs", "Fix security issues", "Remove features"], answer: 2 },
+      { question: "Which is a secure website?", options: ["http://example.com", "https://secure.com", "example.biz", "www.example"], answer: 1 },
+      { question: "Which action is risky?", options: ["Using strong passwords", "Clicking unknown links", "Installing antivirus", "Updating apps"], answer: 1 },
+      { question: "You can report cybercrime in India at:", options: ["www.crimeinfo.com", "www.cybercrime.gov.in", "www.fakepolice.in", "www.helpme.com"], answer: 1 }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextBtn = document.getElementById("next-btn");
+    const restartBtn = document.getElementById("restart-btn");
+    const scoreEl = document.getElementById("score");
+
+   function loadQuestion() {
+  resetState();
+  const q = questions[currentQuestion];
+  questionEl.innerText = `Q${currentQuestion + 1}. ${q.question}`;
+
+  q.options.forEach((option, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = option;
+    btn.classList.add("btn");
+    btn.onclick = () => checkAnswer(btn, index);
+    answerButtons.appendChild(btn);
+  });
+}
+
+
+    function resetState() {
+      nextBtn.style.display = "none";
+      scoreEl.innerText = "";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function checkAnswer(selectedBtn, selectedIndex) {
+      const correctIndex = questions[currentQuestion].answer;
+      const buttons = answerButtons.querySelectorAll(".btn");
+
+      buttons.forEach((btn, index) => {
+        btn.disabled = true;
+        if (index === correctIndex) {
+          btn.classList.add("correct");
+        } else if (btn === selectedBtn) {
+          btn.classList.add("incorrect");
+        }
+      });
+
+      if (selectedIndex === correctIndex) score++;
+      nextBtn.style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        showScore();
+      }
+    }
+
+   function showScore() {
+  resetState();
+  questionEl.innerText = "Quiz Completed!";
+  scoreEl.innerText = `Your score: ${score} / ${questions.length}`;
+  restartBtn.style.display = "inline-block";
+}
+
+function restartQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  restartBtn.style.display = "none";
+  loadQuestion();
+}
+
+// Start quiz
+loadQuestion();
+
+  </script>
+</body>
+</html>

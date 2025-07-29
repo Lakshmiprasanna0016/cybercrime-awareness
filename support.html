@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Guardians - 24/7 Support Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo::before {
+            content: "🛡️";
+            margin-right: 10px;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .back-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .support-hero {
+            text-align: center;
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .support-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .support-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .emergency-banner {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .emergency-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .emergency-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .emergency-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .support-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            border-top: 4px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .support-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .support-card.emergency::before {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+        }
+
+        .support-card.report::before {
+            background: linear-gradient(135deg, #ffa502, #ff6348);
+        }
+
+        .support-card.chat::before {
+            background: linear-gradient(135deg, #3742fa, #2f3542);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .support-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .support-card p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .contact-list li {
+            padding: 0.8rem;
+            background: rgba(76, 175, 80, 0.1);
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+            transition: all 0.3s;
+        }
+
+        .contact-list li:hover {
+            background: rgba(76, 175, 80, 0.2);
+            transform: translateX(5px);
+        }
+
+        .contact-list li strong {
+            color: #333;
+        }
+
+        .support-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            cursor: pointer;
+        }
+
+        .support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .support-btn.emergency {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .support-btn.emergency:hover {
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+        }
+
+        .support-btn.report {
+            background: linear-gradient(135deg, #ffa502, #ff6348);
+            box-shadow: 0 4px 15px rgba(255, 165, 2, 0.3);
+        }
+
+        .support-btn.report:hover {
+            box-shadow: 0 6px 20px rgba(255, 165, 2, 0.4);
+        }
+
+        .support-btn.chat {
+            background: linear-gradient(135deg, #3742fa, #2f3542);
+            box-shadow: 0 4px 15px rgba(55, 66, 250, 0.3);
+        }
+
+        .support-btn.chat:hover {
+            box-shadow: 0 6px 20px rgba(55, 66, 250, 0.4);
+        }
+
+        .incident-form {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 3rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .chat-widget.open {
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h4 {
+            margin: 0;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f8f9fa;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .chat-message.bot {
+            background: #e3f2fd;
+            margin-right: auto;
+        }
+
+        .chat-message.user {
+            background: #4CAF50;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .chat-send {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1.5s infinite;
+        }
+
+        .status-online {
+            background: #4CAF50;
+        }
+
+        .status-busy {
+            background: #ffa502;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3); }
+            50% { box-shadow: 0 12px 35px rgba(255, 71, 87, 0.5); }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @media (max-width: 768px) {
+            .support-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-widget {
+                width: calc(100% - 20px);
+                right: 10px;
+                left: 10px;
+            }
+
+            .support-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .emergency-number {
+                font-size: 2rem;
+            }
+        }
+
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .dark-mode .support-card {
+            background: rgba(42, 42, 62, 0.9);
+            color: #e0e0e0;
+        }
+
+        .dark-mode .support-card h3 {
+            color: #ffffff;
+        }
+
+        .dark-mode .incident-form {
+            background: rgba(42, 42, 62, 0.9);
+            color: #e0e0e0;
+        }
+
+        .dark-mode .form-group input,
+        .dark-mode .form-group textarea,
+        .dark-mode .form-group select {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            border-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="demo.html" class="logo">Cyber Guardians Support</a>
+            <a href="demo.html" class="back-btn">← Back to Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="support-hero">
+                <h1>🚨 24/7 Support Hub</h1>
+                <p>Get immediate help with cyber threats, report incidents, and access emergency support</p>
+            </section>
+
+            <div class="emergency-banner">
+                <h2>🚨 Emergency Cyber Crime Helpline</h2>
+                <p>For immediate assistance with cyber attacks, fraud, or threats</p>
+                <div class="emergency-number">1930</div>
+            </div>
+
+            <div class="support-grid">
+                <div class="support-card emergency">
+                    <div class="card-icon">🚨</div>
+                    <h3>Emergency Contacts</h3>
+                    <p>Immediate help for active cyber threats, financial fraud, or personal safety concerns.</p>
+                    <ul class="contact-list">
+                        <li><strong>Cyber Crime Helpline:</strong> 1930</li>
+                        <li><strong>Police Emergency:</strong> 100</li>
+                        <li><strong>Women Helpline:</strong> 181</li>
+                        <li><strong>Child Helpline:</strong> 1098</li>
+                    </ul>
+                    <button class="support-btn emergency" onclick="callEmergency()">📞 Call Now</button>
+                </div>
+
+                <div class="support-card report">
+                    <div class="card-icon">📋</div>
+                    <h3>Report Cyber Crime</h3>
+                    <p>File official complaints for cyber fraud, harassment, or security breaches.</p>
+                    <ul class="contact-list">
+                        <li><strong>Online Portal:</strong> cybercrime.gov.in</li>
+                        <li><strong>Email:</strong> complaints@cybercrime.gov.in</li>
+                        <li><strong>Status:</strong> <span class="status-indicator status-online"></span>Available 24/7</li>
+                    </ul>
+                    <a href="https://cybercrime.gov.in" target="_blank" class="support-btn report">📝 File Report</a>
+
+                </div>
+
+                <div class="support-card chat">
+                    <div class="card-icon">💬</div>
+                    <h3>Live Chat Support</h3>
+                    <p>Get instant help from our cyber security experts and support team.</p>
+                    <ul class="contact-list">
+                        <li><strong>Response Time:</strong> < 2 minutes</li>
+                        <li><strong>Availability:</strong> <span class="status-indicator status-online"></span>Online Now</li>
+                        <li><strong>Languages:</strong> English, Hindi, Telugu</li>
+                    </ul>
+                    <button class="support-btn chat" onclick="openChat()">💬 Start Chat</button>
+                </div>
+
+                <div class="support-card">
+                    <div class="card-icon">📧</div>
+                    <h3>Email Support</h3>
+                    <p>Detailed assistance for complex issues or non-urgent matters.</p>
+                    <ul class="contact-list">
+                        <li><strong>General Support:</strong> help@cyberguardians.in</li>
+                        <li><strong>Technical Issues:</strong> tech@cyberguardians.in</li>
+                        <li><strong>Response Time:</strong> 2-4 hours</li>
+                    </ul>
+                    <a href="mailto:help@cyberguardians.in" class="support-btn">📧 Send Email</a>
+                </div>
+
+             
+                <div class="support-card">
+                    <div class="card-icon">🎓</div>
+                    <h3>Learning Resources</h3>
+                    <p>Educational materials and guides to improve your cyber security knowledge.</p>
+                    <ul class="contact-list">
+                        <li><strong>Video Tutorials:</strong> Available</li>
+                        <li><strong>PDF Guides:</strong> Downloadable</li>
+                        <li><strong>Interactive Courses:</strong> Free</li>
+                    </ul>
+                 <a href="https://www.w3schools.com" target="_blank" class="support-btn">📚 Start Learning</a>
+
+                </div>
+            </div>
+
+            
+
+    <!-- Chat Widget -->
+    <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">💬</button>
+    
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <h4>🛡️ Cyber Guardian Assistant</h4>
+            <button class="chat-close" onclick="closeChat()">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message bot">
+                👋 Hello! I'm your Cyber Guardian Assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="handleChatEnter(event)">
+            <button class="chat-send" onclick="sendMessage()">→</button>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeReportModal()">×</button>
+            <h2>📋 Report Cyber Crime</h2>
+            <p>You're being redirected to the official Cyber Crime portal where you can file a detailed complaint.</p>
+            <br>
+            <button class="support-btn" onclick="window.open('https://cybercrime.gov.in', '_blank')">
+                🌐 Go to Official Portal
+            </button>
+            <br><br>
+            <button class="support-btn chat" onclick="closeReportModal()">Cancel</button>
+        </div>
+    </div>
+<p style="font-size: 0.9rem; color: #777; text-align: center; margin-top: 1rem;">
+🔒 We will never display your contact info. Your submission may be used (anonymously) to alert others about emerging cyber threats.
+</p>
+
+
+
+    <script>
+        // Chat functionality
+        let chatOpen = false;
+        let chatHistory = [];
+
+        function toggleChat() {
+            const widget = document.getElementById('chatWidget');
+            const toggle = document.getElementById('chatToggle');
+            
+            if (chatOpen) {
+                closeChat();
+            } else {
+                openChat();
+            }
+        }
+
+        function openChat() {
+            const widget = document.getElementById('chatWidget');
+            const toggle = document.getElementById('chatToggle');
+            
+            widget.classList.add('open');
+            toggle.style.display = 'none';
+            chatOpen = true;
+            
+            document.getElementById('chatInput').focus();
+        }
+
+        function closeChat() {
+            const widget = document.getElementById('chatWidget');
+            const toggle = document.getElementById('chatToggle');
+            
+            widget.classList.remove('open');
+            toggle.style.display = 'block';
+            chatOpen = false;
+        }
+
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const response = generateBotResponse(message);
+                    addMessage(response, 'bot');
+                }, 1000);
+            }
+        }
+
+        function addMessage(message, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.textContent = message;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            chatHistory.push({ message, sender, timestamp: new Date() });
+        }
+
+        function generateBotResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            if (message.includes('emergency') || message.includes('urgent') || message.includes('help')) {
+                return "🚨 For immediate emergency assistance, call 1930 (Cyber Crime Helpline) or 100 (Police). If you're in immediate danger, prioritize your safety first!";
+            } else if (message.includes('phishing') || message.includes('fake') || message.includes('scam')) {
+                return "⚠️ If you've encountered a phishing attempt: 1) Don't click any links 2) Don't enter personal info 3) Report it via our incident form 4) Use our scanner to verify suspicious links";
+            } else if (message.includes('malware') || message.includes('virus')) {
+                return "🦠 For malware issues: 1) Disconnect from internet 2) Run antivirus scan 3) Don't enter passwords 4) Contact tech support if system is compromised";
+            } else if (message.includes('fraud') || message.includes('money') || message.includes('payment')) {
+                return "💳 Financial fraud steps: 1) Contact your bank immediately 2) File FIR at nearest police station 3) Report on cybercrime.gov.in 4) Keep all transaction records";
+            } else if (message.includes('harassment') || message.includes('bullying')) {
+                return "🛡️ For cyber harassment: 1) Take screenshots as evidence 2) Block the harasser 3) Report to platform 4) File complaint on cybercrime.gov.in 5) Consider mental health support";
+            } else {
+                return "I'm here to help! You can ask me about phishing, malware, fraud, harassment, or any cyber security concern. For emergencies, call 1930. What specific issue are you facing?";
+            }
+        }
+
+
+
+
+
+
+
+
+ function callEmergency() {
+        window.location.href = "tel:1930";
+    }
+</script>
+            
+            // Simulate form submission

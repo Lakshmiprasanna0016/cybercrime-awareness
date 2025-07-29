@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Defense Challenge - Cyber Guardians Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .game-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-title {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .game-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .stat-item.danger {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .stat-item.warning {
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .game-board {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            flex-grow: 1;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .start-screen h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .start-screen p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
+        }
+
+        .game-area {
+            position: relative;
+            height: 400px;
+            border: 3px solid #4CAF50;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .player {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .threat {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: fallDown 3s linear;
+        }
+
+        .threat.phishing {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .threat.malware {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+        }
+
+        .threat.scam {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+
+        .safe-item {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: fallDown 3s linear;
+        }
+
+        .threat:hover, .safe-item:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fallDown {
+            from {
+                top: -60px;
+            }
+            to {
+                top: 420px;
+            }
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .control-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .control-info h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .control-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .game-over-screen {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .game-over-screen h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-over-screen.win h2 {
+            color: #4CAF50;
+        }
+
+        .game-over-screen.lose h2 {
+            color: #ff6b6b;
+        }
+
+        .final-score {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .restart-button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+            margin: 1rem;
+        }
+
+        .restart-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+
+        .threat-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            max-width: 200px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .explosion {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff6b6b, transparent);
+            animation: explode 0.5s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes explode {
+            from {
+                transform: scale(0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .power-up {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+            cursor: pointer;
+            animation: fallDown 4s linear, spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 10px;
+            }
+
+            .game-title {
+                font-size: 2rem;
+            }
+
+            .game-stats {
+                gap: 1rem;
+            }
+
+            .stat-item {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .game-area {
+                height: 300px;
+            }
+
+            .player {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .threat, .safe-item {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1 class="game-title">🛡️ Cyber Defense Challenge</h1>
+            <p class="game-subtitle">Protect yourself from cyber threats while collecting security rewards!</p>
+            
+            <div class="game-stats">
+                <div class="stat-item">
+                    ⭐ Score: <span id="score">0</span>
+                </div>
+                <div class="stat-item danger">
+                    ❤️ Lives: <span id="lives">3</span>
+                </div>
+                <div class="stat-item warning">
+                    🏆 Level: <span id="level">1</span>
+                </div>
+                <div class="stat-item">
+                    ⏱️ Time: <span id="timer">60</span>s
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="game-board">
+            <div id="startScreen" class="start-screen">
+                <h2>🎮 Ready to Defend the Digital World?</h2>
+                <p>Use your mouse or arrow keys to move the shield 🛡️ and:</p>
+                <ul style="text-align: left; max-width: 500px; margin: 0 auto;">
+                    <li><strong>🔒 Collect</strong> security tools, updates, and safe items</li>
+                    <li><strong>🚫 Avoid</strong> phishing emails, malware, and scam messages</li>
+                    <li><strong>⚡ Grab</strong> power-ups to boost your defenses</li>
+                    <li><strong>🏆 Survive</strong> each level to become a Cyber Guardian!</li>
+                </ul>
+                <button class="start-button" onclick="startGame()">🚀 Start Defense Mission</button>
+            </div>
+
+            <div id="gameArea" class="game-area hidden">
+                <div class="threat-info">
+                    <strong>Mission Briefing:</strong><br>
+                    <span id="currentThreatInfo">Click threats to neutralize them!</span>
+                </div>
+                <div class="player" id="player">🛡️</div>
+            </div>
+
+            <div id="gameOverScreen" class="game-over-screen hidden">
+                <h2 id="gameOverTitle">Mission Complete!</h2>
+                <div class="final-score">
+                    Final Score: <span id="finalScore">0</span>
+                </div>
+                <p id="gameOverMessage">Great job defending against cyber threats!</p>
+                <button class="restart-button" onclick="restartGame()">🔄 New Mission</button>
+                <button class="restart-button" onclick="backToStart()" style="background: linear-gradient(135deg, #667eea, #764ba2);">🏠 Main Menu</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-info">
+                <h3>🎯 How to Play</h3>
+                <p><strong>Move:</strong> Use mouse or arrow keys | <strong>Click:</strong> Neutralize threats | <strong>Collect:</strong> Green security items | <strong>Avoid:</strong> Red cyber threats</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gameState = {
+            score: 0,
+            lives: 3,
+            level: 1,
+            timeLeft: 60,
+            gameRunning: false,
+            playerX: 50,
+            threats: [],
+            safeItems: [],
+            powerUps: [],
+            gameTimer: null,
+            spawnTimer: null,
+            difficulty: 1
+        };
+
+        const threatTypes = [
+            { emoji: '📧', type: 'phishing', name: 'Phishing Email', points: -20 },
+            { emoji: '🦠', type: 'malware', name: 'Malware', points: -30 },
+            { emoji: '💸', type: 'scam', name: 'Scam Message', points: -25 },
+            { emoji: '🔓', type: 'malware', name: 'Security Breach', points: -35 }
+        ];
+
+        const safeTypes = [
+            { emoji: '🔐', name: 'Security Update', points: 15 },
+            { emoji: '🛡️', name: 'Antivirus', points: 20 },
+            { emoji: '🔒', name: 'Encryption', points: 25 },
+            { emoji: '✅', name: 'Safe Link', points: 10 }
+        ];
+
+        const powerUpTypes = [
+            { emoji: '⚡', name: 'Speed Boost', effect: 'speed' },
+            { emoji: '💚', name: 'Extra Life', effect: 'life' },
+            { emoji: '🌟', name: 'Score Multiplier', effect: 'multiplier' }
+        ];
+
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameArea').classList.remove('hidden');
+            
+            resetGameState();
+            gameState.gameRunning = true;
+            
+            setupGameTimers();
+            setupControls();
+            updateDisplay();
+        }
+
+        function resetGameState() {
+            gameState.score = 0;
+            gameState.lives = 3;
+            gameState.level = 1;
+            gameState.timeLeft = 60;
+            gameState.playerX = 50;
+            gameState.threats = [];
+            gameState.safeItems = [];
+            gameState.powerUps = [];
+            gameState.difficulty = 1;
+            
+            clearInterval(gameState.gameTimer);
+            clearInterval(gameState.spawnTimer);
+        }
+
+        function setupGameTimers() {
+            // Main game timer
+            gameState.gameTimer = setInterval(() => {
+                gameState.timeLeft--;
+                updateDisplay();
+                
+                if (gameState.timeLeft <= 0) {
+                    levelComplete();
+                }
+            }, 1000);
+
+            // Spawn items timer
+            gameState.spawnTimer = setInterval(() => {
+                spawnRandomItem();
+            }, 1500 - (gameState.difficulty * 100));
+        }
+
+        function setupControls() {
+            const gameArea = document.getElementById('gameArea');
+            const player = document.getElementById('player');
+
+            // Mouse control
+            gameArea.addEventListener('mousemove', (e) => {
+                if (!gameState.gameRunning) return;
+                
+                const rect = gameArea.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                gameState.playerX = Math.max(5, Math.min(95, x));
+                player.style.left = gameState.playerX + '%';
+            });
+
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (!gameState.gameRunning) return;
+                
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        gameState.playerX = Math.max(5, gameState.playerX - 5);
+                        break;
+                    case 'ArrowRight':
+                        gameState.playerX = Math.min(95, gameState.playerX + 5);
+                        break;
+                }
+                player.style.left = gameState.playerX + '%';
+            });
+        }
+
+        function spawnRandomItem() {
+            if (!gameState.gameRunning) return;
+
+            const gameArea = document.getElementById('gameArea');
+            const random = Math.random();
+            
+            if (random < 0.6) {
+                // Spawn threat
+                spawnThreat();
+            } else if (random < 0.9) {
+                // Spawn safe item
+                spawnSafeItem();
+            } else {
+                // Spawn power-up
+                spawnPowerUp();
+            }
+        }
+
+        function spawnThreat() {
+            const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
+            const element = createFallingElement(threat.emoji, 'threat ' + threat.type);
+            
+            element.onclick = () => neutralizeThreat(element, threat);
+            element.onanimationend = () => {
+                if (element.parentNode && !element.classList.contains('neutralized')) {
+                    // Threat reached bottom - lose life
+                    takeDamage();
+                    element.remove();
+                }
+            };
+
+            gameState.threats.push({ element, threat });
+        }
+
+        function spawnSafeItem() {
+            const safeItem = safeTypes[Math.floor(Math.random() * safeTypes.length)];
+            const element = createFallingElement(safeItem.emoji, 'safe-item');
+            
+            element.onclick = () => collectSafeItem(element, safeItem);
+            element.onanimationend = () => {
+                if (element.parentNode) {
+                    element.remove();
+                }
+            };
+
+            gameState.safeItems.push({ element, safeItem });
+        }
+
+        function spawnPowerUp() {
+            const powerUp = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
+            const element = createFallingElement(powerUp.emoji, 'power-up');
+            
+            element.onclick = () => collectPowerUp(element, powerUp);
+            element.onanimationend = () => {
+                if (element.parentNode) {
+                    element.remove();
+                }
+            };
+
+            gameState.powerUps.push({ element, powerUp });
+        }
+
+        function createFallingElement(emoji, className) {
+            const gameArea = document.getElementById('gameArea');
+            const element = document.createElement('div');
+            
+            element.className = className;
+            element.textContent = emoji;
+            element.style.left = Math.random() * 90 + '%';
+            element.style.animationDuration = (3 - gameState.difficulty * 0.3) + 's';
+            
+            gameArea.appendChild(element);
+            return element;
+        }
+
+        function neutralizeThreat(element, threat) {
+            if (element.classList.contains('neutralized')) return;
+            
+            element.classList.add('neutralized');
+            element.style.animation = 'none';
+            
+            // Create explosion effect
+            createExplosion(element);
+            
+            // Add points for neutralizing threat
+            gameState.score += Math.abs(threat.points);
+            updateThreatInfo('Threat Neutralized: ' + threat.name + ' (+' + Math.abs(threat.points) + ' points)');
+            
+            setTimeout(() => element.remove(), 500);
+            updateDisplay();
+        }
+
+        function collectSafeItem(element, safeItem) {
+            element.style.animation = 'none';
+            element.style.transform = 'scale(1.5)';
+            element.style.opacity = '0.5';
+            
+            gameState.score += safeItem.points;
+            updateThreatInfo('Collected: ' + safeItem.name + ' (+' + safeItem.points + ' points)');
+            
+            setTimeout(() => element.remove(), 300);
+            updateDisplay();
+        }
+
+        function collectPowerUp(element, powerUp) {
+            element.style.animation = 'none';
+            element.style.transform = 'scale(2)';
+            element.style.opacity = '0';
+            
+            applyPowerUp(powerUp);
+            updateThreatInfo('Power-Up: ' + powerUp.name + '!');
+            
+            setTimeout(() => element.remove(), 300);
+        }
+
+        function applyPowerUp(powerUp) {
+            switch(powerUp.effect) {
+                case 'life':
+                    gameState.lives = Math.min(5, gameState.lives + 1);
+                    break;
+                case 'multiplier':
+                    // Double points for next 10 seconds
+                    setTimeout(() => {
+                        // Multiplier effect would be implemented here
+                    }, 10000);
+                    break;
+                case 'speed':
+                    // Slow down threats for 10 seconds
+                    document.querySelectorAll('.threat, .safe-item').forEach(el => {
+                        el.style.animationDuration = '5s';
+                    });
+                    setTimeout(() => {
+                        document.querySelectorAll('.threat, .safe-item').forEach(el => {
+                            el.style.animationDuration = (3 - gameState.difficulty * 0.3) + 's';
+                        });
+                    }, 10000);
+                    break;
+            }
+            updateDisplay();
+        }
+
+        function takeDamage() {
+            gameState.lives--;
+            updateDisplay();
+            
+            if (gameState.lives <= 0) {
+                gameOver(false);
+            } else {
+                updateThreatInfo('Threat hit! Lives remaining: ' + gameState.lives);
+                // Flash effect
+                document.getElementById('player').style.filter = 'brightness(0.5)';
+                setTimeout(() => {
+                    document.getElementById('player').style.filter = 'brightness(1)';
+                }, 200);
+            }
+        }
+
+        function createExplosion(element) {
+            const explosion = document.createElement('div');
+            explosion.className = 'explosion';
+            explosion.style.left = element.style.left;
+            explosion.style.top = element.offsetTop + 'px';
+            
+            document.getElementById('gameArea').appendChild(explosion);
+            setTimeout(() => explosion.remove(), 500);
+        }
+
+        function levelComplete() {
+            gameState.level++;
+            gameState.timeLeft = 60;
+            gameState.difficulty = Math.min(3, gameState.difficulty + 0.5);
+            
+            // Clear all items
+            document.querySelectorAll('.threat, .safe-item, .power-up').forEach(el => el.remove());
+            
+            if (gameState.level > 5) {
+                gameOver(true);
+            } else {
+                updateThreatInfo('Level ' + gameState.level + ' - Threats are getting stronger!');
+                // Restart spawn timer with increased difficulty
+                clearInterval(gameState.spawnTimer);
+                gameState.spawnTimer = setInterval(() => {
+                    spawnRandomItem();
+                }, 1500 - (gameState.difficulty * 100));
+            }
+            
+            updateDisplay();
+        }
+
+        function gameOver(won) {
+            gameState.gameRunning = false;
+            clearInterval(gameState.gameTimer);
+            clearInterval(gameState.spawnTimer);
+            
+            document.getElementById('gameArea').classList.add('hidden');
+            const gameOverScreen = document.getElementById('gameOverScreen');
+            gameOverScreen.classList.remove('hidden');
+            
+            const title = document.getElementById('gameOverTitle');
+            const message = document.getElementById('gameOverMessage');
+            document.getElementById('finalScore').textContent = gameState.score;
+            
+            if (won) {
+                gameOverScreen.className = 'game-over-screen win';
+                title.textContent = '🏆 Mission Accomplished!';
+                message.textContent = 'Congratulations! You successfully defended against all cyber threats and became a true Cyber Guardian!';
+            } else {
+                gameOverScreen.className = 'game-over-screen lose';
+                title.textContent = '💥 Mission Failed';
+                message.textContent = 'The cyber threats overwhelmed your defenses. Study the threats and try again to become a Cyber Guardian!';
+            }
+        }
+
+        function restartGame() {
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            startGame();
+        }
+
+        function backToStart() {
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+            
+            // Clear any remaining elements
+            document.querySelectorAll('.threat, .safe-item, .power-up, .explosion').forEach(el => el.remove());
+        }
+
+        function updateDisplay() {
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('lives').textContent = gameState.lives;
+            document.getElementById('level').textContent = gameState.level;
+            document.getElementById('timer').textContent = gameState.timeLeft;
+            
+            // Update progress bar
+            const progress = (60 - gameState.timeLeft) / 60 * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function updateThreatInfo(message) {
+            document.getElementById('currentThreatInfo').textContent = message;
+            setTimeout(() => {
+                document.getElementById('currentThreatInfo').textContent = 'Click threats to neutralize them!';
+            }, 3000);
+        }
+
+        // Initialize the game
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>

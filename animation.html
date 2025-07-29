@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word by Word Heading Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .animated-heading {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            margin-right: 0.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .controls {
+            margin-top: 2rem;
+        }
+
+        button {
+            background: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #667eea;
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .demo-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .demo-heading {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="heading1" class="animated-heading"></h1>
+        
+        <div class="controls">
+            <button onclick="animateHeading('heading1', 'Welcome to Amazing World')">Animate Heading 1</button>
+            <button onclick="animateHeading('heading1', 'Hello Beautiful Universe')">Animate Heading 2</button>
+            <button onclick="resetHeading('heading1')">Reset</button>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-heading">Different Animation Styles:</h2>
+            
+            <h3 id="heading2" style="color: #667eea; font-size: 2rem;"></h3>
+            <button onclick="animateWithDelay('heading2', 'Smooth Delayed Animation', 300)">Slow Animation</button>
+            <button onclick="animateWithDelay('heading2', 'Quick Fire Words', 100)">Fast Animation</button>
+            
+            <h3 id="heading3" style="color: #764ba2; font-size: 2rem; margin-top: 2rem;"></h3>
+            <button onclick="animateWithBounce('heading3', 'Bouncy Text Effect')">Bounce Effect</button>
+        </div>
+    </div>
+
+    <script>
+        // Main word-by-word animation function
+        function animateHeading(elementId, text) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = '';
+            
+            const words = text.split(' ');
+            
+            words.forEach((word, index) => {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = word;
+                span.style.animationDelay = `${index * 0.3}s`;
+                element.appendChild(span);
+            });
+        }
+
+        // Animation with custom delay
+        function animateWithDelay(elementId, text, delay) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = '';
+            
+            const words = text.split(' ');
+            
+            words.forEach((word, index) => {
+                setTimeout(() => {
+                    const span = document.createElement('span');
+                    span.textContent = word + ' ';
+                    span.style.opacity = '0';
+                    span.style.transform = 'translateX(-20px)';
+                    span.style.display = 'inline-block';
+                    span.style.transition = 'all 0.5s ease';
+                    
+                    element.appendChild(span);
+                    
+                    // Trigger animation
+                    setTimeout(() => {
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateX(0)';
+                    }, 50);
+                }, index * delay);
+            });
+        }
+
+        // Animation with bounce effect
+        function animateWithBounce(elementId, text) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = '';
+            
+            const words = text.split(' ');
+            
+            words.forEach((word, index) => {
+                setTimeout(() => {
+                    const span = document.createElement('span');
+                    span.textContent = word + ' ';
+                    span.style.display = 'inline-block';
+                    span.style.transform = 'scale(0)';
+                    span.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                    
+                    element.appendChild(span);
+                    
+                    // Trigger bounce animation
+                    setTimeout(() => {
+                        span.style.transform = 'scale(1)';
+                    }, 50);
+                }, index * 200);
+            });
+        }
+
+        // Reset function
+        function resetHeading(elementId) {
+            document.getElementById(elementId).innerHTML = '';
+        }
+
+        // Auto-start first animation
+        window.onload = function() {
+            setTimeout(() => {
+                animateHeading('heading1', 'Welcome to Amazing World');
+            }, 500);
+        };
+    </script>
+</body>
+</html>

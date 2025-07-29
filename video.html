@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security Videos - CyberGuard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .controls-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            padding: 12px 24px;
+            border: 2px solid #4CAF50;
+            background: transparent;
+            color: #4CAF50;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .admin-panel {
+            display: none;
+            padding: 2rem;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid #4CAF50;
+            margin-bottom: 2rem;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-panel h3 {
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+        }
+
+        .search-section {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .filter-select {
+            min-width: 150px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .videos-container {
+            margin-top: 2rem;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: #4CAF50;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s;
+        }
+
+        .video-thumbnail:hover img {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(76, 175, 80, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(76, 175, 80, 1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .video-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .video-category {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+        }
+
+        .video-player-section {
+            display: none;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .video-player-section.active {
+            display: block;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .video-details {
+            color: white;
+        }
+
+        .video-details h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .video-details p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .video-details-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .meta-item {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+        }
+
+        .close-player {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .close-player:hover {
+            background: #ee5a52;
+            transform: translateY(-2px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .alert-error {
+            background: rgba(255, 107, 107, 0.2);
+            color: #c62828;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .search-section {
+                flex-direction: column;
+            }
+
+            .search-input, .filter-select {
+                min-width: 100%;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-player {
+                height: 250px;
+            }
+
+            .mode-toggle {
+                flex-direction: column;
+            }
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="topRB.png" alt="Logo" class="logo-img">
+                CyberGuard
+            </div>
+            <ul class="nav-links">
+                <li><a href="demo.html">Home</a></li>
+                <li><a href="verifyURL.html">URL verification</a></li>
+                <li><a href="Awareness.html">awareness</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="video.html" style="color: #4CAF50;">Videos</a></li>
+                <li><a href="/templates/index.html" >report an issue</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>🎥 Cyber Security Video Library</h1>
+                <p>Access comprehensive video tutorials and educational content to enhance your cyber security knowledge</p>
+            </div>
+
+            <div class="controls-section">
+                <!-- Mode Toggle -->
+                <div class="mode-toggle">
+                   <button class="mode-btn active" onclick="switchMode('browse', event)">📱 Browse Videos</button>
+<button class="mode-btn" onclick="switchMode('admin', event)">🔧 Admin Panel</button>
+
+                </div>
+
+                <!-- Admin Panel -->
+                <div class="admin-panel" id="adminPanel">
+                    <h3>
+                        <span>🎬</span>
+                        Upload New Video
+                    </h3>
+                    <form id="uploadForm">
+                        <div class="form-group">
+                            <label for="videoUrl">YouTube URL:</label>
+                            <input type="url" id="videoUrl" placeholder="https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoTitle">Video Title:</label>
+                            <input type="text" id="videoTitle" placeholder="Enter descriptive video title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoDescription">Description:</label>
+                            <textarea id="videoDescription" rows="3" placeholder="Describe what viewers will learn from this video"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoCategory">Category:</label>
+                            <select id="videoCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Phishing">Phishing Protection</option>
+                                <option value="Malware">Malware Awareness</option>
+                                <option value="Password">Password Security</option>
+                                <option value="Social Engineering">Social Engineering</option>
+                                <option value="Safe Browsing">Safe Browsing</option>
+                                <option value="Data Protection">Data Protection</option>
+                                <option value="Network Security">Network Security</option>
+                                <option value="Mobile Security">Mobile Security</option>
+                                <option value="General">General Security</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <button type="submit" class="btn btn-primary">
+                                <span>⬆️</span> Upload Video
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="clearAllVideos()">
+                                <span>🗑️</span> Clear All Videos
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Browse Section -->
+                <div class="browse-section" id="browseSection">
+                    <div class="stats-bar">
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalVideos">0</span>
+                            <span class="stat-label">Total Videos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalCategories">0</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="filteredCount">0</span>
+                            <span class="stat-label">Showing</span>
+                        </div>
+                    </div>
+
+                    <div class="search-section">
+                        <div class="form-group search-input">
+                            <input type="text" id="searchInput" placeholder="🔍 Search videos by title, description, or category...">
+                        </div>
+                        <div class="form-group filter-select">
+                            <select id="categoryFilter">
+                                <option value="">All Categories</option>
+                                <option value="Phishing">Phishing Protection</option>
+                                <option value="Malware">Malware Awareness</option>
+                                <option value="Password">Password Security</option>
+                                <option value="Social Engineering">Social Engineering</option>
+                                <option value="Safe Browsing">Safe Browsing</option>
+                                <option value="Data Protection">Data Protection</option>
+                                <option value="Network Security">Network Security</option>
+                                <option value="Mobile Security">Mobile Security</option>
+                                <option value="General">General Security</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="refreshVideos()">
+                            <span>🔄</span> Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <div id="alertContainer"></div>
+
+            <!-- Video Player Section -->
+            <div class="video-player-section" id="videoPlayerSection">
+                <button class="close-player" onclick="closeVideoPlayer()">
+                    ✕ Close Video
+                </button>
+                <iframe id="videoPlayer" class="video-player" frameborder="0" allowfullscreen></iframe>
+                <div class="video-details">
+                    <h2 id="currentVideoTitle"></h2>
+                    <p id="currentVideoDescription"></p>
+                    <div class="video-details-meta">
+                        <span class="meta-item" id="currentVideoCategory"></span>
+                        <span class="meta-item" id="currentVideoDate"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Videos Container -->
+            <div class="videos-container">
+                <div class="videos-grid" id="videosGrid">
+                    <!-- Videos will be dynamically loaded here -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <h3>📹 No Videos Available</h3>
+                    <p>No videos match your search criteria. Try adjusting your search or add new videos using the admin panel.</p>
+                </div>
+            </div>
+        </div>
+        <!-- User Experience Sharing Section -->
+<div class="controls-section" style="margin-top: 3rem;">
+  <h2 style="text-align: center; margin-bottom: 1rem;">📢 Share Your Cyber Experience</h2>
+  <form id="experienceForm">
+    <div class="form-group">
+      <label for="userName">Your Name (Optional):</label>
+      <input type="text" id="userName" placeholder="Anonymous">
+    </div>
+    <div class="form-group">
+      <label for="userExperience">Your Experience:</label>
+      <textarea id="userExperience" rows="4" placeholder="Describe what happened and how others can stay safe..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">🚀 Submit Experience</button>
+  </form>
+</div>
+
+<!-- Experience Display Section -->
+<div class="videos-container" style="margin-top: 2rem;">
+  <h2 style="text-align: center; color: white;">💬 Real User Experiences</h2>
+  <div id="experienceList" class="videos-grid"></div>
+</div>
+
+    </main>
+
+    <script>
+        // Video storage system
+        let videoLibrary = [];
+        let filteredVideos = [];
+        let currentMode = 'browse';
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSampleVideos();
+            setupEventListeners();
+            refreshVideos();
+            updateStats();
+        });
+
+        // Load sample videos for demonstration
+        function loadSampleVideos() {
+            if (videoLibrary.length === 0) {
+                videoLibrary = [
+                    {
+                        id: 'demo1',
+                        title: 'Cyber Security Fundamentals',
+                        description: 'Learn the essential principles of cyber security, including common threats, security measures, and best practices for staying safe online.',
+                        category: 'General',
+                        url: 'https://www.youtube.com/watch?v=inWWhr5tnEA',
+                        embedUrl: 'https://www.youtube.com/embed/inWWhr5tnEA',
+                        thumbnail: 'https://img.youtube.com/vi/inWWhr5tnEA/maxresdefault.jpg',
+                        uploadDate: new Date().toLocaleDateString(),
+                        views: 0
+                    },
+                    {
+                        id: 'demo2',
+                        title: 'Identifying and Avoiding Phishing Attacks',
+                        description: 'Master the skills to recognize phishing emails, fake websites, and social engineering tactics used by cybercriminals to steal personal information.',
+                        category: 'Phishing',
+                        url: 'https://www.youtube.com/watch?v=XBkzBrXlle0',
+                        embedUrl: 'https://www.youtube.com/embed/XBkzBrXlle0',
+                        thumbnail: 'https://img.youtube.com/vi/XBkzBrXlle0/maxresdefault.jpg',
+                        uploadDate: new Date().toLocaleDateString(),
+                        views: 0
+                    },
+                    {
+                        id: 'demo3',
+                        title: 'Strong Password Creation and Management',
+                        description: 'Discover how to create unbreakable passwords, use password managers effectively, and implement two-factor authentication for maximum security.',
+                        category: 'Password',
+                        url: 'https://www.youtube.com/watch?v=3NjQ9b3pgIg',
+                        embedUrl: 'https://www.youtube.com/embed/3NjQ9b3pgIg',
+                        thumbnail: 'https://img.youtube.com/vi/3NjQ9b3pgIg/maxresdefault.jpg',
+                        uploadDate: new Date().toLocaleDateString(),
+                        views: 0
+                    }
+                ];
+            }
+        }
+
+        // Setup all event listeners
+        function setupEventListeners() {
+            // Form submission
+            document.getElementById('uploadForm').addEventListener('submit', handleVideoUpload);
+            
+            // Search and filter
+            document.getElementById('searchInput').addEventListener('input', filterVideos);
+            document.getElementById('categoryFilter').addEventListener('change', filterVideos);
+        }
+
+        // Switch between browse and admin modes
+    function switchMode(mode, event) {
+    currentMode = mode;
+
+    // Update button states
+    document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Show/hide panels
+    const adminPanel = document.getElementById('adminPanel');
+    const browseSection = document.getElementById('browseSection');
+
+    if (mode === 'admin') {
+        adminPanel.classList.add('active');
+        browseSection.style.display = 'none';
+    } else {
+        adminPanel.classList.remove('active');
+        browseSection.style.display = 'block';
+    }
+}
+
+        // Handle video upload
+        function handleVideoUpload(e) {
+            e.preventDefault();
+            
+            const url = document.getElementById('videoUrl').value.trim();
+            const title = document.getElementById('videoTitle').value.trim();
+            const description = document.getElementById('videoDescription').value.trim();
+            const category = document.getElementById('videoCategory').value;
+            
+            // Validation
+            if (!url || !title || !category) {
+                showAlert('Please fill in all required fields!', 'error');
+                return;
+            }
+            
+            const videoId = extractYouTubeId(url);
+            if (!videoId) {
+                showAlert('Please enter a valid YouTube URL!', 'error');
+                return;
+            }
+            
+            // Check for duplicates
+            if (videoLibrary.some(video => video.url === url)) {
+                showAlert('This video has already been uploaded!', 'error');
+                return;
+            }
+            
+            // Create new video object
+            const newVideo = {
+                id: Date.now().toString(),
+                title: title,
+                description: description || 'No description provided.',
+                category: category,
+                url: url,
+                embedUrl: `https://www.youtube.com/embed/${videoId}`,
+                thumbnail: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+                uploadDate: new Date().toLocaleDateString(),
+                views: 0
+            };
+            
+            // Add to library
+            videoLibrary.unshift(newVideo);
+            
+            // Clear form
+            document.getElementById('uploadForm').reset();
+            
+            // Refresh display
+            refreshVideos();
+            updateStats();
+            
+            showAlert(`Video "${title}" uploaded successfully!`, 'success');
+        }
+
+        // Extract YouTube video ID from various URL formats
+        function extractYouTubeId(url) {
+            const regexPatterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+                /youtube\.com\/v\/([^&\n?#]+)/,
+                /youtube\.com\/.*[?&]v=([^&\n?#]+)/
+            ];
+            
+            for (let pattern of regexPatterns) {
+                const match = url.match(pattern);
+                if (match && match[1]) {
+                    return match[1];
+                }
+            }
+            return null;
+        }
+
+        // Filter videos based on search and category
+        function filterVideos() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            
+            filteredVideos = videoLibrary.filter(video => {
+                const matchesSearch = !searchTerm || 
+                    video.title.toLowerCase().includes(searchTerm) ||
+                    video.description.toLowerCase().includes(searchTerm) ||
+                    video.category.toLowerCase().includes(searchTerm);
+                
+                const matchesCategory = !selectedCategory || video.category === selectedCategory;
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            displayVideos();
+            updateStats();
+        }
+
+        // Display videos in the grid
+       function displayVideos() {
+  const grid = document.getElementById('videosGrid');
+  const emptyState = document.getElementById('emptyState');
+
+  if (filteredVideos.length === 0) {
+    grid.innerHTML = '';
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+
+  grid.innerHTML = filteredVideos.map(video => `
+    <div class="video-card" onclick="playVideo('${video.id}')">
+      <div class="video-thumbnail">
+        <img src="${video.thumbnail}" alt="${video.title}" 
+             onerror="this.src='https://via.placeholder.com/350x200/4CAF50/white?text=Video+Thumbnail'">
+        <div class="play-button">▶</div>
+      </div>
+      <div class="video-info">
+        <h3 class="video-title">${video.title}</h3>
+        <p class="video-description">${video.description}</p>
+        <div class="video-meta">
+          <span>📅 ${video.uploadDate}</span>
+          <span class="video-category">📚 ${video.category}</span>
+          <span>👀 ${video.views}</span>
+        </div>
+        <div class="video-actions">
+          <button class="btn btn-primary" onclick="event.stopPropagation(); playVideo('${video.id}')">
+            ▶ Watch Now
+          </button>
+          <button class="btn btn-danger" onclick="event.stopPropagation(); alert('Saved to Favorites!')">
+            ❤️ Save
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+       }
+
+        // Play video in the player section
+        function playVideo(id) {
+            const video = videoLibrary.find(v => v.id === id);
+            if (!video) return;
+
+            document.getElementById('videoPlayer').src = video.embedUrl;
+            document.getElementById('currentVideoTitle').innerText = video.title;
+            document.getElementById('currentVideoDescription').innerText = video.description;
+            document.getElementById('currentVideoCategory').innerText = video.category;
+            document.getElementById('currentVideoDate').innerText = video.uploadDate;
+
+            document.getElementById('videoPlayerSection').classList.add('active');
+        }
+
+        function closeVideoPlayer() {
+            document.getElementById('videoPlayer').src = '';
+            document.getElementById('videoPlayerSection').classList.remove('active');
+        }
+
+        function updateStats() {
+            document.getElementById('totalVideos').innerText = videoLibrary.length;
+            document.getElementById('filteredCount').innerText = filteredVideos.length;
+            const categories = new Set(videoLibrary.map(v => v.category));
+            document.getElementById('totalCategories').innerText = categories.size;
+        }
+
+        function refreshVideos() {
+            filterVideos();
+        }
+
+        function showAlert(message, type) {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert alert-${type}`;
+            alertBox.innerText = message;
+
+            const container = document.getElementById('alertContainer');
+            container.innerHTML = '';
+            container.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 4000);
+        }
+
+        function clearAllVideos() {
+            if (confirm("Are you sure you want to clear all uploaded videos?")) {
+                videoLibrary = [];
+                refreshVideos();
+                updateStats();
+                showAlert("All videos have been cleared.", "success");
+            }
+        }
+        let experienceLibrary = [];
+
+document.getElementById('experienceForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('userName').value.trim() || 'Anonymous';
+  const story = document.getElementById('userExperience').value.trim();
+
+  if (!story) {
+    showAlert('Please share something before submitting!', 'error');
+    return;
+  }
+
+  const experience = {
+    name,
+    story,
+    date: new Date().toLocaleDateString()
+  };
+
+  experienceLibrary.unshift(experience);
+  document.getElementById('experienceForm').reset();
+  displayExperiences();
+  showAlert('Thank you for sharing your experience!', 'success');
+});
+
+function displayExperiences() {
+  const list = document.getElementById('experienceList');
+  list.innerHTML = experienceLibrary.map(exp => `
+    <div class="video-card">
+      <div class="video-info">
+        <h3 class="video-title">👤 ${exp.name}</h3>
+        <p class="video-description">${exp.story}</p>
+        <div class="video-meta">
+          <span>📅 ${exp.date}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+
+    </script>
+</body>
+</html>
+

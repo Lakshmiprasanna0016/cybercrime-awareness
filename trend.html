@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security Trends - CyberGuard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-selector, .dark-mode-toggle {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dark-mode-toggle {
+            background: transparent;
+            border: 2px solid #4CAF50;
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .trends-dashboard {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: #f0f0f0;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .trend-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-left: 5px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trend-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .trend-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .trend-card.warning::before {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .trend-card.warning {
+            border-left-color: #ff6b6b;
+        }
+
+        .trend-card.info::before {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .trend-card.info {
+            border-left-color: #667eea;
+        }
+
+        .trend-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .trend-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .trend-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .trend-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .trend-tag {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .trend-description {
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .trend-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .chart-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chart-header h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-area {
+            height: 300px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder {
+            text-align: center;
+            color: #666;
+        }
+
+        .news-feed {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .news-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .news-content {
+            padding: 2rem;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .news-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .severity-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .severity-low { background-color: #4CAF50; }
+        .severity-medium { background-color: #ffc107; }
+        .severity-high { background-color: #ff6b6b; }
+
+        .alert-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        .alert-banner h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .interactive-chart {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .interactive-chart:hover {
+            transform: scale(1.02);
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: end;
+            gap: 1rem;
+            height: 200px;
+            padding: 2rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .chart-bar:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #4CAF50;
+            border-radius: 20px;
+            background: transparent;
+            color: #4CAF50;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #4CAF50;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .trends-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .trend-stats {
+                flex-direction: column;
+            }
+        }
+
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .dark-mode .trends-dashboard,
+        .dark-mode .news-feed {
+            background: rgba(30, 30, 50, 0.95);
+            color: #e0e0e0;
+        }
+
+        .dark-mode .trend-card,
+        .dark-mode .news-card {
+            background: rgba(42, 42, 62, 0.9);
+            color: #e0e0e0;
+        }
+
+        .dark-mode .trend-title,
+        .dark-mode .news-title {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <div class="logo-img">🛡️</div>
+                CyberGuard
+            </a>
+            <ul class="nav-links">
+                <li><a href="demo.html">Home</a></li>
+                <li><a href="scanner.html">Scanner</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="game.html">Game</a></li>
+                <li><a href="video.html">Videos</a></li>
+                <li><a href="trend.html" class="active">Trends</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+            <div class="header-controls">
+                <select class="language-selector" id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Cyber Security Trends 2024</h1>
+                <p>Stay ahead of emerging threats with real-time threat intelligence and trending cyber security insights</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="alert-banner">
+                <h3>⚠️ High Alert: New Phishing Campaign Detected</h3>
+                <p>Sophisticated email phishing targeting financial institutions - Be extra cautious with banking emails</p>
+            </div>
+
+            <div class="trends-dashboard">
+                <div class="dashboard-tabs">
+                    <button class="tab-button active" onclick="showTab('current')">Current Threats</button>
+                    <button class="tab-button" onclick="showTab('emerging')">Emerging Trends</button>
+                    <button class="tab-button" onclick="showTab('statistics')">Statistics</button>
+                    <button class="tab-button" onclick="showTab('predictions')">Predictions</button>
+                </div>
+
+                <div id="current" class="tab-content active">
+                    <div class="filter-controls">
+                        <button class="filter-btn active" onclick="filterTrends('all')">All Threats</button>
+                        <button class="filter-btn" onclick="filterTrends('phishing')">Phishing</button>
+                        <button class="filter-btn" onclick="filterTrends('malware')">Malware</button>
+                        <button class="filter-btn" onclick="filterTrends('ransomware')">Ransomware</button>
+                        <button class="filter-btn" onclick="filterTrends('social')">Social Engineering</button>
+                    </div>
+
+                    <div class="trends-grid">
+                        <div class="trend-card warning" data-category="phishing">
+                            <div class="trend-header">
+                                <div class="trend-icon">🎣</div>
+                                <div class="trend-title">AI-Powered Phishing</div>
+                            </div>
+                            <div class="trend-meta">
+                                <span class="trend-tag">High Risk</span>
+                                <span>↗️ +45% this week</span>
+                            </div>
+                            <div class="trend-description">
+                                Cybercriminals are using advanced AI to create highly convincing phishing emails that bypass traditional filters. These attacks are becoming increasingly sophisticated and harder to detect.
+                            </div>
+                            <div class="trend-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">85%</span>
+                                    <span class="stat-label">Success Rate</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">12K</span>
+                                    <span class="stat-label">Attacks Today</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trend-card info" data-category="malware">
+                            <div class="trend-header">
+                                <div class="trend-icon">🦠</div>
+                                <div class="trend-title">Mobile Banking Trojans</div>
+                            </div>
+                            <div class="trend-meta">
+                                <span class="trend-tag">Medium Risk</span>
+                                <span>↗️ +28% this week</span>
+                            </div>
+                            <div class="trend-description">
+                                New variants of mobile banking trojans are targeting Android devices, stealing banking credentials and bypassing two-factor authentication.
+                            </div>
+                            <div class="trend-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">67%</span>
+                                    <span class="stat-label">Android Targeted</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">8.5K</span>
+                                    <span class="stat-label">Infections</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trend-card" data-category="ransomware">
+                            <div class="trend-header">
+                                <div class="trend-icon">🔒</div>
+                                <div class="trend-title">Ransomware-as-a-Service</div>
+                            </div>
+                            <div class="trend-meta">
+                                <span class="trend-tag">Critical</span>
+                                <span>↗️ +62% this month</span>
+                            </div>
+                            <div class="trend-description">
+                                Ransomware groups are offering their services to less technical criminals, lowering the barrier to entry for ransomware attacks.
+                            </div>
+                            <div class="trend-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">15</span>
+                                    <span class="stat-label">New Groups</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">3.2M</span>
+                                    <span class="stat-label">Avg. Ransom</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trend-card warning" data-category="social">
+                            <div class="trend-header">
+                                <div class="trend-icon">🎭</div>
+                                <div class="trend-title">Deepfake Scams</div>
+                            </div>
+                            <div class="trend-meta">
+                                <span class="trend-tag">Emerging</span>
+                                <span>↗️ +120% this month</span>
+                            </div>
+                            <div class="trend-description">
+                                Scammers are using deepfake technology to impersonate trusted individuals in video calls, requesting money transfers or sensitive information.
+                            </div>
+                            <div class="trend-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">95%</span>
+                                    <span class="stat-label">Believability</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">450</span>
+                                    <span class="stat-label">Cases Reported</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="emerging" class="tab-content">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Emerging Threat Landscape</h3>
+                            <p>New threats detected in the past 30 days</p>
+                        </div>
+                        <div class="chart-area">
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 80%;">AI Phishing</div>
+                                <div class="chart-bar" style="height: 65%;">IoT Exploits</div>
+                                <div class="chart-bar" style="height: 90%;">Deepfakes</div>
+                                <div class="chart-bar" style="height: 45%;">5G Attacks</div>
+                                <div class="chart-bar" style="height: 70%;">Cloud Misconfig</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trends-grid">
+                        <div class="trend-card info">
+                            <div class="trend-header">
+                                <div class="trend-icon">🌐</div>
+                                <div class="trend-title">IoT Botnet Evolution</div>
+                            </div>
+                            <div class="trend-description">
+                                Internet of Things devices are being weaponized into massive botnets, capable of launching devastating DDoS attacks and cryptocurrency mining operations.
+                            </div>
+                        </div>
+
+                        <div class="trend-card warning">
+                            <div class="trend-header">
+                                <div class="trend-icon">☁️</div>
+                                <div class="trend-title">Cloud Infrastructure Attacks</div>
+                            </div>
+                            <div class="trend-description">
+                                Misconfigured cloud services are becoming prime targets, with attackers exploiting exposed databases and insecure APIs to steal sensitive data.
+                            </div>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-header">
+                                <div class="trend-icon">🔮</div>
+                                <div class="trend-title">Quantum Computing Threats</div>
+                            </div>
+                            <div class="trend-description">
+                                Preparing for the quantum era: Current encryption methods may become vulnerable to quantum computers, requiring new cryptographic approaches.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="statistics" class="tab-content">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Global Cyber Attack Statistics</h3>
+                            <p>Real-time data from the past 24 hours</p>
+                        </div>
+                        <div class="interactive-chart" onclick="updateChart()">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                                <div>Click to refresh statistics</div>
+                                <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                                    Updates every 15 minutes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trends-grid">
+                        <div class="trend-card">
+                            <div class="trend-header">
+                                <div class="trend-icon">🌍</div>
+                                <div class="trend-title">Global Attack Volume</div>
+                            </div>
+                            <div class="trend-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="globalAttacks">2,847</span>
+                                    <span class="stat-label">Attacks/Hour</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="blockedAttacks">1,923</span>
+                                    <span class="stat-label">Blocked</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trend-card warning">
+                            <div class="trend-header">
+                                <div class="trend-icon">🎯</div>
+                                <div class="trend-title">Top Targeted Sectors</div>
+                            </div>
+                            <div class="trend-description">
+                                <strong>1. Financial Services (34%)</strong><br>
+                                <strong>2. Healthcare (28%)</strong><br>
+                                <strong>3. Government (19%)</strong><br>
+                                <strong>4. Education (12%)</strong><br>
+                                <strong>5. Retail (7%)</strong>
+                            </div>
+                        </div>
+
+                        <div class="trend-card info">
+                            <div class="trend-header">
+                                <div class="trend-icon">💰</div>
+                                <div class="trend-title">Economic Impact</div>
+                            </div>
+                            <div class="trend-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">$10.5B</span>
+                                    <span class="stat-label">Global Losses</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">287</span>
+                                    <span class="stat-label">Days Avg Recovery</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="predictions" class="tab-content">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Threat Predictions 2024-2025</h3>
+                            <p>AI-powered threat intelligence forecasting</p>
+                        </div>
+                        <div class="chart-area">
+                            <div class="chart-placeholder">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🔮</div>
+                                <div>AI Prediction Models Loading...</div>
+                                <div style="margin-top: 1rem;">
+                                    <div style="width: 200px; height: 4px; background: #f0f0f0; border-radius: 2px; margin: 1rem auto; overflow: hidden;">
+                                        <div style="width: 0%; height: 100%; background: #4CAF50; border-radius: 2px; animation: loading 3s ease-in-out infinite;" id="loadingBar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trends-grid">
+    <div class="trend-card">
+        <div class="trend-header">
+            <div class="trend-icon">🤖</div>
+            <div class="trend-title">AI-Driven Attacks</div>
+        </div>
+        <div class="trend-description">
+            Predicted 300% increase in AI-powered cyber attacks by 2025. Automated vulnerability discovery and exploitation will become more frequent, making threat detection more challenging.
+        </div>
+    </div>
+</div>

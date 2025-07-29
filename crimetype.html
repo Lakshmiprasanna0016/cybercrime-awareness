@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Types of Cyber Crimes - CyberSafe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0 50px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .crime-detail {
+            background: white;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .crime-detail:hover {
+            transform: translateY(-5px);
+        }
+
+        .crime-header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .crime-icon {
+            font-size: 3rem;
+        }
+
+        .crime-title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .crime-content {
+            padding: 2rem;
+        }
+
+        .crime-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .crime-examples {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .crime-examples h4 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .example-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .example-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .example-list li:last-child {
+            border-bottom: none;
+        }
+
+        .prevention-tips {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .prevention-tips h4 {
+            margin-bottom: 1rem;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tips-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tips-list li::before {
+            content: "✓";
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102,126,234,0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .crime-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                🛡️ CyberSafe
+            </div>
+            <ul class="nav-links">
+                <li><a href="home1.html">Home</a></li>
+                <li><a href="crime-types.html">Crime Types</a></li>
+                <li><a href="prevention.html">Prevention</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="legal.html">Legal</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Types of Cyber Crimes</h1>
+            <p>Understanding different types of cyber crimes is the first step towards protecting yourself and others from digital threats.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="container">
+            
+            <!-- Statistics -->
+            <div class="stats-section">
+                <h2>Cyber Crime Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">4.8B</div>
+                        <div class="stat-label">Records Breached in 2023</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">$8.15M</div>
+                        <div class="stat-label">Average Data Breach Cost</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">Attacks Involve Human Error</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">43%</div>
+                        <div class="stat-label">Target Small Businesses</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phishing -->
+            <div class="crime-detail">
+                <div class="crime-header">
+                    <div class="crime-icon">🎣</div>
+                    <div class="crime-title">Phishing</div>
+                </div>
+                <div class="crime-content">
+                    <div class="crime-description">
+                        Phishing is a deceptive practice where criminals send fake emails, text messages, or create fake websites that appear to be from legitimate organizations to steal sensitive information such as passwords, credit card numbers, or personal data.
+                    </div>
+                    
+                    <div class="crime-examples">
+                        <h4>Common Examples:</h4>
+                        <ul class="example-list">
+                            <li>Fake bank emails asking you to "verify" your account</li>
+                            <li>Fake government notices demanding immediate action</li>
+                            <li>Fake social media login pages</li>
+                            <li>Email attachments containing malware</li>
+                            <li>SMS messages with suspicious links</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="prevention-tips">
+                        <h4>How to Protect Yourself:</h4>
+                        <ul class="tips-list">
+                            <li>Always verify sender's identity through official channels</li>
+                            <li>Look for spelling and grammar mistakes in emails</li>
+                            <li>Check URL carefully before entering sensitive information</li>
+                            <li>Use multi-factor authentication</li>
+                            <li>Keep antivirus software updated</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hacking -->
+            <div class="crime-detail">
+                <div class="crime-header" style="background: linear-gradient(135deg, #dc3545, #e74c3c);">
+                    <div class="crime-icon">💻</div>
+                    <div class="crime-title">Hacking</div>
+                </div>
+                <div class="crime-content">
+                    <div class="crime-description">
+                        Hacking involves unauthorized access to computer systems, networks, or devices to steal, modify, or destroy data. Hackers may target individuals, businesses, or government organizations for various motives including financial gain, political activism, or personal vendetta.
+                    </div>
+                    
+                    <div class="crime-examples">
+                        <h4>Types of Hacking:</h4>
+                        <ul class="example-list">
+                            <li>Password cracking and brute force attacks</li>
+                            <li>SQL injection attacks on websites</li>
+                            <li>Network intrusion and data theft</li>
+                            <li>Social engineering attacks</li>
+                            <li>Man-in-the-middle attacks</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="prevention-tips">
+                        <h4>Protection Strategies:</h4>
+                        <ul class="tips-list">
+                            <li>Use strong, unique passwords for all accounts</li>
+                            <li>Enable firewall protection</li>
+                            <li>Regular software updates and patches</li>
+                            <li>Avoid public Wi-Fi for sensitive activities</li>
+                            <li>Use VPN for secure browsing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Identity Theft -->
+            <div class="crime-detail">
+                <div class="crime-header" style="background: linear-gradient(135deg, #fd7e14, #ffc107);">
+                    <div class="crime-icon">🎭</div>
+                    <div class="crime-title">Identity Theft</div>
+                </div>
+                <div class="crime-content">
+                    <div class="crime-description">
+                        Identity theft occurs when someone unlawfully obtains and uses another person's personal information, such as social security numbers, credit card details, or other identifying information, typically for financial gain or to commit fraud.
+                    </div>
+                    
+                    <div class="crime-examples">
+                        <h4>Common Methods:</h4>
+                        <ul class="example-list">
+                            <li>Stealing personal documents or mail</li>
+                            <li>Data breaches exposing personal information</li>
+                            <li>Skimming devices on ATMs or card readers</li>
+                            <li>Social media information gathering</li>
+                            <li>Phone scams requesting personal details</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="prevention-tips">
+                        <h4>Prevention Methods:</h4>
+                        <ul class="tips-list">
+                            <li>Monitor credit reports regularly</li>
+                            <li>Shred sensitive documents before disposal</li>
+                            <li>Limit personal information on social media</li>
+                            <li>Use secure payment methods online</li>
+                            <li>Be cautious with personal information sharing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cyber Bullying -->
+            <div class="crime-detail">
+                <div class="crime-header" style="background: linear-gradient(135deg, #6f42c1, #8a2be2);">
+                    <div class="crime-icon">😢</div>
+                    <div class="crime-title">Cyber Bullying</div>
+                </div>
+                <div class="crime-content">
+                    <div class="crime-description">
+                        Cyberbullying involves the use of digital technologies to harass, threaten, embarrass, or target another person. It can occur through social media, messaging platforms, gaming platforms, or any digital communication channel.
+                    </div>
+                    
+                    <div class="crime-examples">
+                        <h4>Forms of Cyberbullying:</h4>
+                        <ul class="example-list">
+                            <li>Sending threatening or hurtful messages</li>
+                            <li>Posting embarrassing photos or videos</li>
+                            <li>Creating fake profiles to impersonate someone</li>
+                            <li>Excluding someone from online groups</li>
+                            <li>Spreading rumors or false information</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="prevention-tips">
+                        <h4>What You Can Do:</h4>
+                        <ul class="tips-list">
+                            <li>Block and report bullies on social platforms</li>
+                            <li>Save evidence of cyberbullying incidents</li>
+                            <li>Talk to trusted adults or authorities</li>
+                            <li>Use privacy settings on social media</li>
+                            <li>Support others who are being bullied</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ransomware -->
+            <div class="crime-detail">
+                <div class="crime-header" style="background: linear-gradient(135deg, #dc3545, #bd2130);">
+                    <div class="crime-icon">🔒</div>
+                    <div class="crime-title">Ransomware Attacks</div>
+                </div>
+                <div class="crime-content">
+                    <div class="crime-description">
+                        Ransomware is malicious software that encrypts a victim's files and demands payment in exchange for the decryption key. These attacks can target individuals, businesses, hospitals, and even government agencies, causing significant disruption and financial loss.
+                    </div>
+                    
+                    <div class="crime-examples">
+                        <h4>How Ransomware Spreads:</h4>
+                        <ul class="example-list">
+                            <li>Email attachments with malicious code</li>
+                            <li>Infected websites and downloads</li>
+                            <li>USB drives and removable media</li>
+                            <li>Network vulnerabilities</li>
+                            <li>Remote desktop protocol attacks</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="prevention-tips">
+                        <h4>Protection Measures:</h4>
+                        <ul class="tips-list">
+                            <li>Regular data backups (offline storage)</li>
+                            <li>Keep software and OS updated</li>
+                            <li>Use reputable antivirus software</li>
+                            <li>Avoid suspicious email attachments</li>
+                            <li>Implement network security measures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Online Fraud -->
+            <div class="crime-detail">
+                <div class="crime-header" style="background: linear-gradient(135deg, #e83e8c, #d63384);">
+                    <div class="crime-icon">💰</div>
+                    <div class="crime-title">Online Scams & Frauds</div>
+                </div>
+                <div class="crime-content">
+                    <div class="crime-description">
+                        Online fraud encompasses various deceptive schemes designed to trick people into giving money or personal information. These scams have evolved with technology and social media, becoming increasingly sophisticated and convincing.
+                    </div>
+                    
+                    <div class="crime-examples">
+                        <h4>Popular Online Scams:</h4>
+                        <ul class="example-list">
+                            <li>Fake investment and cryptocurrency schemes</li>
+                            <li>Romance scams on dating platforms</li>
+                            <li>Fake lottery or prize notifications</li>
+                            <li>Tech support scams</li>
+                            <li>Fake online shopping websites</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="prevention-tips">
+                        <h4>Red Flags to Watch For:</h4>
+                        <ul class="tips-list">
+                            <li>Promises of easy money or guaranteed returns</li>
+                            <li>Urgency tactics ("limited time offer")</li>
+                            <li>Requests for upfront payments</li>
+                            <li>Poor grammar and spelling in communications</li>
+                            <li>Unsolicited contact from unknown parties</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CyberSafe Awareness Platform. Educational Purpose Only.</p>
+            <p style="margin-top: 0.5rem; color: #888;">Knowledge is your best defense against cyber crimes.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Back to top functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll animation for crime details
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.crime-detail').forEach(detail => {
+            detail.style.opacity = '0';
+            detail.style.transform = 'translateY(50px)';
+            detail.style.transition = 'all 0.6s ease';
+            observer.observe(detail);
+        });
+    </script>
+</body>
+</html>

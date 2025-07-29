@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Guardians - Security Scanner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('topRB.png') center/cover;
+
+    z-index: -1;
+}
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+      
+        .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo-img {
+    width: 60px;          /* Adjust size as needed */
+    height: 60px;
+    margin-right: 10px;
+    animation: pulse 2s infinite;
+}
+ .language-selector, .dark-mode-toggle {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .back-btn {
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .scanner-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            backdrop-filter: blur(20px);
+            margin-bottom: 2rem;
+        }
+
+        .scanner-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .scanner-header h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .scanner-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .scan-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .scan-type-card {
+            background: linear-gradient(135deg, #f8f9ff, #e6f3ff);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scan-type-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .scan-type-card.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .scan-type-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .scan-type-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .scan-type-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .scanner-form {
+            background: rgba(248, 249, 255, 0.8);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group textarea,
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group textarea:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .scan-button {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .scan-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .scan-button.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .results-container {
+            margin-top: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .results-container.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .result-card {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .result-card.safe {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .result-card.warning {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+        }
+
+        .result-card.danger {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-icon {
+            font-size: 3rem;
+            margin-right: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            opacity: 0.9;
+        }
+
+        .detail-value {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .recommendations {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .recommendations h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendations li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .recommendations li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .history-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .history-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ddd;
+            transition: all 0.3s;
+        }
+
+        .history-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .history-item.safe {
+            border-left-color: #4CAF50;
+        }
+
+        .history-item.warning {
+            border-left-color: #FF9800;
+        }
+
+        .history-item.danger {
+            border-left-color: #f44336;
+        }
+
+        .clear-history {
+            padding: 0.5rem 1rem;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .clear-history:hover {
+            background: #d32f2f;
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .scanner-container {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .scanner-header h1 {
+                font-size: 2rem;
+            }
+
+            .scan-types {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+        .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.language-selector, .dark-mode-toggle {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dark-mode-toggle {
+    background: transparent;
+    border: 2px solid #4CAF50;
+}
+
+.language-selector:hover, .dark-mode-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+    <nav class="container">
+        <div class="logo">
+            <img src="topRB.png" alt="Logo" class="logo-img">
+            CyberGuard
+        </div>
+        <ul class="nav-links">
+            <li><a href="demo.html">Home</a></li>
+            <li><a href="scanner.html">Scanner</a></li>
+            <li><a href="learn.html">Learn</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="video.html">Videos</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <main>
+        <div class="container">
+            <div class="scanner-container fade-in">
+                <div class="scanner-header">
+                    <h1>🔍 Security Scanner</h1>
+                    <p>Advanced AI-powered threat detection to keep you safe from phishing, malware, and suspicious content. Scan URLs, emails, messages, and more.</p>
+                </div>
+
+                <div class="scan-types">
+                    <div class="scan-type-card active" data-type="url">
+                        <span class="icon">🔗</span>
+                        <h3>URL Scanner</h3>
+                        <p>Check suspicious links and websites for malware, phishing, and other threats</p>
+                    </div>
+                    <div class="scan-type-card" data-type="email">
+                        <span class="icon">📧</span>
+                        <h3>Email Validator</h3>
+                        <p>Verify if emails are legitimate or potential phishing attempts</p>
+                    </div>
+                    <div class="scan-type-card" data-type="otp">
+                        <span class="icon">🔢</span>
+                        <h3>OTP Checker</h3>
+                        <p>Validate OTP requests and check for authentication scams</p>
+                    </div>
+                    <div class="scan-type-card" data-type="message">
+                        <span class="icon">💬</span>
+                        <h3>Message Analyzer</h3>
+                        <p>Analyze SMS and messages for scam patterns and threats</p>
+                    </div>
+                </div>
+
+                <form class="scanner-form" id="scannerForm">
+                    <div class="form-group">
+                        <label for="scanInput" id="inputLabel">Enter URL to scan:</label>
+                        <textarea 
+                            id="scanInput" 
+                            placeholder="Paste the suspicious URL, email, or message here..."
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="form-group" id="contextGroup" style="display: none;">
+                        <label for="contextInput">Additional Context (Optional):</label>
+                        <input 
+                            type="text" 
+                            id="contextInput" 
+                            placeholder="Where did you receive this? (WhatsApp, Email, SMS, etc.)"
+                        >
+                    </div>
+                    <button type="submit" class="scan-button" id="scanBtn">
+                        🔍 Scan for Threats
+                    </button>
+                </form>
+
+                <div class="results-container" id="resultsContainer">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+
+            <div class="history-section" id="historySection">
+                <div class="history-header">
+                    <h3>📋 Scan History</h3>
+                    <button class="clear-history" onclick="clearHistory()">Clear History</button>
+                </div>
+               <div id="historyContainer">
+    <p style="text-align: center; color: #666; padding: 2rem;">No scan history yet. Start scanning to see your results here.</p>
+</div>
+            </div>
+        </div>
+    </main>
+    <script>
+let currentScanType = 'url';
+const scanHistory = [];
+
+document.querySelectorAll('.scan-type-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.scan-type-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        currentScanType = card.dataset.type;
+    });
+});
+
+document.getElementById('scannerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const scanInput = document.getElementById('scanInput').value.trim();
+    const scanBtn = document.getElementById('scanBtn');
+const resultBox = document.getElementById('resultsContainer');
+
+    if (!scanInput) {
+        alert('Please enter something to scan!');
+        return;
+    }
+
+    scanBtn.classList.add('loading');
+    scanBtn.disabled = true;
+    scanBtn.textContent = 'Scanning...';
+
+    try {
+        const response = await fetch('http://127.0.0.1:5000/api/scan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                input: scanInput,
+                type: currentScanType
+            })
+        });
+
+        const resultData = await response.json();
+        console.log("RESULT FROM BACKEND:", resultData);
+
+        const result = {
+            id: Date.now(),
+            type: currentScanType,
+            input: scanInput,
+            timestamp: new Date().toLocaleString(),
+            threats: resultData.threats.map(t => ({
+                type: t.type,
+                severity: t.severity,
+                description: t.detail
+            })),
+            level: resultData.level,
+            score: resultData.level === 'danger' ? 15 : resultData.level === 'warning' ? 55 : 95
+        };
+
+        displayResults(result);
+        addToHistory(result);
+    } catch (error) {
+        resultBox.innerHTML = `<span style="color:red;">⚠️ Error connecting to backend: ${error.message}</span>`;
+    }
+
+    scanBtn.classList.remove('loading');
+    scanBtn.disabled = false;
+    scanBtn.textContent = 'Scan for Threats';
+});
+
+function displayResults(result) {
+const resultBox = document.getElementById('resultsContainer');
+let icon = '✅', title = 'Looks Clean / Valid', color = 'green';
+
+    if (result.level === 'warning') {
+        icon = '⚠️';
+        title = 'May Be Fraud';
+        color = 'orange';
+    } else if (result.level === 'danger') {
+        icon = '🚨';
+        title = 'Fraud - Dangerous';
+        color = 'red';
+    }
+
+    resultBox.innerHTML = `
+        <div style="color:${color}; font-size:18px;">
+            ${icon} <strong>${title}</strong><br/>
+            Threats: ${result.threats.length > 0 ? result.threats.map(t => t.description).join(', ') : 'None'}
+        </div>
+    `;
+    document.getElementById('resultsContainer').classList.add('show');
+
+}
+function addToHistory(result) {
+    scanHistory.unshift(result); // Add newest result to the top
+    updateHistoryDisplay();      // Refresh UI
+}
+
+function updateHistoryDisplay() {
+    const container = document.getElementById('historyContainer');
+
+    if (!container) {
+        console.error("❌ #historyContainer not found in HTML.");
+        return;
+    }
+
+    if (scanHistory.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">No scan history yet. Start scanning to see your results here.</p>';
+        return;
+    }
+
+    const historyHtml = scanHistory.slice(0, 10).map(item => `
+        <div class="history-item ${item.level}">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong>${item.type.toUpperCase()} Scan</strong>
+                <span style="font-size: 0.8rem; opacity: 0.7;">${item.timestamp}</span>
+            </div>
+            <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 0.5rem;">${item.input}</div>
+            <div style="display: flex; gap: 1rem; font-size: 0.8rem;">
+                ${item.level !== 'safe' ? `<span>Risk: ${Math.round(item.score)}/100</span>` : ''}
+
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = historyHtml;
+}
+
+function clearHistory() {
+    scanHistory.length = 0;
+    updateHistoryDisplay();
+
+    // 🔥 Clear the result box also
+    const resultBox = document.getElementById('resultsContainer');
+    resultBox.innerHTML = '';
+    resultBox.classList.remove('show');
+}
+ function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        document.querySelector('.dark-mode-toggle').textContent = isDark ? '☀️' : '🌙';
+    }
+
+    document.getElementById('languageSelect').addEventListener('change', function () {
+        const selectedLang = this.value;
+        console.log("Language changed to:", selectedLang);
+        // You can call translation function here if needed.
+    });
+
+
+</script>
+    
+<!--
+    <script>
+        let currentScanType = 'url';
+        let scanHistory = []; // Using in-memory storage instead of localStorage
+
+        // Scan type selection');
+                currentScanType = card.dat
+        document.querySelectorAll('.scan-type-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.scan-type-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('activeaset.type;
+                updateFormBasedOnType();
+                });
+        });
+
+        function updateFormBasedOnType() {
+            const inputLabel = document.getElementById('inputLabel');
+            const scanInput = document.getElementById('scanInput');
+            const contextGroup = document.getElementById('contextGroup');
+            const scanBtn = document.getElementById('scanBtn');
+
+            switch(currentScanType) {
+                case 'url':
+                    inputLabel.textContent = 'Enter URL to scan:';
+                    scanInput.placeholder = 'https://example.com or paste suspicious link here...';
+                    scanBtn.innerHTML = '🔍 Scan URL';
+                    contextGroup.style.display = 'block';
+                    break;
+                case 'email':
+                    inputLabel.textContent = 'Enter email content to analyze:';
+                    scanInput.placeholder = 'Paste the suspicious email content here...';
+                    scanBtn.innerHTML = '📧 Analyze Email';
+                    contextGroup.style.display = 'block';
+                    break;
+                case 'otp':
+                    inputLabel.textContent = 'Enter OTP request details:';
+                    scanInput.placeholder = 'Paste the OTP request message or details here...';
+                    scanBtn.innerHTML = '🔢 Verify OTP Request';
+                    contextGroup.style.display = 'block';
+                    break;
+                case 'message':
+                    inputLabel.textContent = 'Enter message to analyze:';
+                    scanInput.placeholder = 'Paste the suspicious SMS or message here...';
+                    scanBtn.innerHTML = '💬 Analyze Message';
+                    contextGroup.style.display = 'block';
+                    break;
+            }
+        }
+
+        // Form submission
+        document.getElementById('scannerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const scanInput = document.getElementById('scanInput').value.trim();
+            const contextInput = document.getElementById('contextInput').value.trim();
+            const scanBtn = document.getElementById('scanBtn');
+
+            if (!scanInput) {
+                alert('Please enter content to scan');
+                return;
+            }
+
+            // Show loading state
+            scanBtn.classList.add('loading');
+            scanBtn.disabled = true;
+            scanBtn.textContent = 'Scanning...';
+
+            // Simulate scanning process
+            // Simulate scanning process
+try {
+    const response = await fetch('http://127.0.0.1:5000/api/scan', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            input: scanInput,
+            type: currentScanType
+        })
+    });
+
+    const resultData = await response.json();
+
+    const result = {
+        id: Date.now(),
+        type: currentScanType,
+        input: scanInput,
+        context: contextInput,
+        timestamp: new Date().toLocaleString(),
+        threats: resultData.threats.map(t => ({
+            type: t.type,
+            severity: t.severity,
+            description: t.detail
+        })),
+        level: resultData.level,
+        score: resultData.level === 'danger' ? 15 : resultData.level === 'warning' ? 55 : 95
+    };
+
+    displayResults(result);
+    addToHistory(result);
+} catch (error) {
+    alert('⚠️ Error connecting to backend: ' + error.message);
+}
+
+// Reset button
+scanBtn.classList.remove('loading');
+scanBtn.disabled = false;
+updateFormBasedOnType();
+
+
+        });
+
+        function performScan(input, context, type) {
+            // This is a simulation - in a real application, this would call your backend API
+            const result = {
+                id: Date.now(),
+                type: type,
+                input: input,
+                context: context,
+                timestamp: new Date().toLocaleString(),
+                score: Math.random() * 100,
+                threats: [],
+                recommendations: []
+            };
+
+            // Simulate threat detection based on patterns
+            if (type === 'url') {
+                result.threats = analyzeURL(input);
+            } else if (type === 'email') {
+                result.threats = analyzeEmail(input);
+            } else if (type === 'otp') {
+                result.threats = analyzeOTP(input);
+            } else if (type === 'message') {
+                result.threats = analyzeMessage(input);
+            }
+
+            // Determine safety level
+            if (result.threats.length === 0) {
+                result.level = 'safe';
+                result.score = Math.random() * 20 + 80; // 80-100
+            } else if (result.threats.some(t => t.severity === 'high')) {
+                result.level = 'danger';
+                result.score = Math.random() * 30; // 0-30
+            } else {
+                result.level = 'warning';
+                result.score = Math.random() * 40 + 30; // 30-70
+            }
+
+            return result;
+        }
+
+        function analyzeURL(url) {
+            const threats = [];
+            const suspiciousPatterns = [
+                'bit.ly', 'tinyurl', 'goo.gl', 'short.link',
+                'secure-bank-update', 'urgent-action-required',
+                'click-here-now', 'limited-time-offer',
+                'verify-account-immediately', 'suspended-account'
+            ];
+
+            suspiciousPatterns.forEach(pattern => {
+                if (url.toLowerCase().includes(pattern)) {
+                    threats.push({
+                        type: 'Suspicious Pattern',
+                        description: `Contains suspicious pattern: ${pattern}`,
+                        severity: pattern.includes('secure') || pattern.includes('verify') ? 'high' : 'medium'
+                    });
+                }
+            });
+
+            if (!url.startsWith('https://') && url.startsWith('http://')) {
+                threats.push({
+                    type: 'Insecure Connection',
+                    description: 'URL uses HTTP instead of secure HTTPS',
+                    severity: 'medium'
+                });
+            }
+
+            return threats;
+        }
+
+        function analyzeEmail(email) {
+            const threats = [];
+            const phishingKeywords = [
+                'urgent action required', 'verify your account', 'suspended account',
+                'click here immediately', 'limited time offer', 'congratulations you won',
+                'tax refund', 'lottery winner', 'prince of nigeria'
+            ];
+
+            phishingKeywords.forEach(keyword => {
+                if (email.toLowerCase().includes(keyword)) {
+                    threats.push({
+                        type: 'Phishing Pattern',
+                        description: `Contains phishing keyword: "${keyword}"`,
+                        severity: 'high'
+                    });
+                }
+            });
+
+            if (email.match(/click\s+here/gi)) {
+                threats.push({
+                    type: 'Suspicious Link',
+                    description: 'Contains "click here" links which are often used in phishing',
+                    severity: 'medium'
+                });
+            }
+
+            return threats;
+        }
+
+        function analyzeOTP(otpRequest) {
+            const threats = [];
+            
+            if (!otpRequest.toLowerCase().includes('otp') && !otpRequest.toLowerCase().includes('verification code')) {
+                threats.push({
+                    type: 'Suspicious Request',
+                    description: 'Does not appear to be a legitimate OTP request',
+                    severity: 'high'
+                });
+            }
+
+            if (otpRequest.toLowerCase().includes('share') || otpRequest.toLowerCase().includes('forward')) {
+                threats.push({
+                    type: 'Social Engineering',
+                    description: 'Requests sharing or forwarding OTP (major red flag)',
+                    severity: 'high'
+                });
+            }
+
+            const urgencyWords = ['urgent', 'immediately', 'expire', 'limited time'];
+            urgencyWords.forEach(word => {
+                if (otpRequest.toLowerCase().includes(word)) {
+                    threats.push({
+                        type: 'Urgency Tactic',
+                        description: `Uses urgency tactics: "${word}"`,
+                        severity: 'medium'
+                    });
+                }
+            });
+
+            return threats;
+        }
+
+        function analyzeMessage(message) {
+            const threats = [];
+            const scamPatterns = [
+                'you have won', 'lottery', 'prize money', 'congratulations',
+                'tax refund', 'government benefits', 'free gift',
+                'urgent response required', 'act now', 'limited time'
+            ];
+
+            scamPatterns.forEach(pattern => {
+                if (message.toLowerCase().includes(pattern)) {
+                    threats.push({
+                        type: 'Scam Pattern',
+                        description: `Contains scam indicator: "${pattern}"`,
+                        severity: 'high'
+                    });
+                }
+            });
+
+            if (message.match(/\d{10,}/)) {
+                threats.push({
+                    type: 'Phone Number',
+                    description: 'Contains phone numbers (potential callback scam)',
+                    severity: 'medium'
+                });
+            }
+
+            return threats;
+        }
+
+        function displayResults(result) {
+            const container = document.getElementById('resultsContainer');
+            
+            let icon, title, recommendations;
+            
+            if (result.level === 'safe') {
+                icon = '✅';
+                title = 'Safe - No Threats Detected';
+                recommendations = [
+                    'Content appears to be legitimate',
+                    'Always verify sender identity for important requests',
+                    'Keep your security software updated'
+                ];
+            } else if (result.level === 'warning') {
+                icon = '⚠️';
+                title = 'Caution - Potential Risks Found';
+                recommendations = [
+                    'Exercise caution before proceeding',
+                    'Verify the source independently',
+                    'Do not share personal information',
+                    'Contact the organization directly if unsure'
+                ];
+            } else {
+                icon = '🚨';
+                title = 'Danger - High Risk Detected';
+                recommendations = [
+                    'DO NOT interact with this content',
+                    'DO NOT click any links or download attachments',
+                    'DO NOT share personal or financial information',
+                    'Report this to the relevant authorities',
+                    'Delete the message immediately'
+                ];
+            }
+
+            const threatsHtml = result.threats.map(threat => `
+                <div class="detail-item">
+                    <span class="detail-label">${threat.type}</span>
+                    <span class="detail-value ${threat.severity}">${threat.severity.toUpperCase()}</span>
+                </div>
+                <p style="margin-top: 0.5rem; opacity: 0.9; font-size: 0.9rem;">${threat.description}</p>
+            `).join('');
+
+            const recommendationsHtml = recommendations.map(rec => `<li>${rec}</li>`).join('');
+
+            container.innerHTML = `
+                <div class="result-card ${result.level}">
+                    <div class="result-header">
+                        <span class="result-icon">${icon}</span>
+                        <div>
+                            <div class="result-title">${title}</div>
+                            <div style="opacity: 0.9; margin-top: 0.5rem;">Risk Score: ${Math.round(result.score)}/100</div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Scan Type</span>
+                            <span class="detail-value">${result.type.toUpperCase()}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Threats Found</span>
+                            <span class="detail-value">${result.threats.length}</span>
+                        </div>
+                        ${threatsHtml}
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>🛡️ Security Recommendations</h4>
+                        <ul>${recommendationsHtml}</ul>
+                    </div>
+                </div>
+            `;
+
+            container.classList.add('show');
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function addToHistory(result) {
+            const historyItem = {
+                ...result,
+                preview: result.input.substring(0, 100) + (result.input.length > 100 ? '...' : '')
+            };
+            
+            scanHistory.unshift(historyItem);
+            if (scanHistory.length > 50) scanHistory = scanHistory.slice(0, 50); // Keep last 50 scans
+            
+            updateHistoryDisplay();
+        }
+
+        function updateHistoryDisplay() 
+
+        {
+            const container = document.getElementById('historyContainer');
+            
+            if (scanHistory.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">No scan history yet. Start scanning to see your results here.</p>';
+                return;
+            }
+        
+
+            const historyHtml = scanHistory.slice(0, 10).map(item => (
+    <div className={`history-item ${item.level}`}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <strong>{item.type.toUpperCase()} Scan</strong>
+            <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>{item.timestamp}</span>
+        </div>
+        <div style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '0.5rem' }}>{item.preview}</div>
+        <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem' }}>
+            <span>Risk: {Math.round(item.score)}/100</span>
+        </div>
+    </div>
+));
+        }
+        
+// Bulk scan function (for future use)
+async function bulkScan(items) {
+    try {
+     const response = await fetch('http://127.0.0.1:5000/api/scan', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        input: scanInput,
+        type: currentScanType
+    })
+});
+
+const resultData = await response.json();
+console.log("RESULT DATA FROM BACKEND:", resultData); // ✅ This line inside HTML file
+  
+     return data;
+    } catch (error) {
+        console.error('Error during bulk scan:', error);
+        return { error: error.message };
+    }
+}
